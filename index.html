@@ -89,6 +89,17 @@
       background-color: #4CAF50;
       color: white;
     }
+
+    /* Fix for General Assessment dropdown */
+    select {
+      color: #000; /* Set the text color to black */
+      background-color: #fff; /* Set the background color to white */
+    }
+
+    option {
+      color: #000; /* Ensure the text color inside options is black */
+      background-color: #fff; /* Ensure the background color inside options is white */
+    }
   </style>
 </head>
 
@@ -158,11 +169,11 @@
 
       <label>General Assessment</label>
       <select name="GENERAL_ASSESSMENT" required>
-        <option value="B(Some comprehension, limited vocabulary, unclear pronunciation.)"></option>
-        <option value="B+(Better comprehension, simple words and grammar, some pronunciation difficulties.)"></option>
-        <option value="A-(Mostly accurate comprehension, minor mistakes in grammar and pronunciation.)"></option>
-        <option value="A(Good comprehension, minor lapses in grammar and fluency)."></option>
-        <option value="A+(Excellent comprehension, fluent and grammatically correct speech.)"></option>
+        <option value="B(Some comprehension, limited vocabulary, unclear pronunciation.)">B - Some comprehension, limited vocabulary, unclear pronunciation.</option>
+        <option value="B+(Better comprehension, simple words and grammar, some pronunciation difficulties.)">B+ - Better comprehension, simple words and grammar, some pronunciation difficulties.</option>
+        <option value="A-(Mostly accurate comprehension, minor mistakes in grammar and pronunciation.)">A- - Mostly accurate comprehension, minor mistakes in grammar and pronunciation.</option>
+        <option value="A(Good comprehension, minor lapses in grammar and fluency).">A - Good comprehension, minor lapses in grammar and fluency.</option>
+        <option value="A+(Excellent comprehension, fluent and grammatically correct speech.)">A+ - Excellent comprehension, fluent and grammatically correct speech.</option>
       </select>
 
       <div class="button-group">
