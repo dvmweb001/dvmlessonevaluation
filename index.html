@@ -1,34 +1,147 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lesson Evaluation</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      min-height: 200vh;
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #FFFFFF;
+    }.container {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
 
-        syntaxCount++;
+form {
+  display: flex;
+  flex-direction: column;
+}
 
-      } else {
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
 
-        alert('Maximum of 4 sentences allowed.');
+input,
+select,
+textarea,
+button {
+  margin-top: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-      }
+.radio-group {
+  display: flex;
+  gap: 5px;
+}
 
-    }
+table {
+  width: 75%;
+  margin-top: 5px;
+  border-collapse: collapse;
+}
 
-    // Save form data to localStorage
+table td,
+table th {
+  border: 1px solid #ccc;
+  padding: 4px;
+  text-align: left;
+}
 
-    document.querySelectorAll('input, textarea, select').forEach(element => {
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
 
-      element.addEventListener('input', () => {
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-        localStorage.setItem(element.name, element.value);
+button[type="reset"] {
+  background-color: #f44336;
+  color: white;
+}
 
-      });
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
 
-      if (localStorage.getItem(element.name)) {
+select {
+  color: #000;
+  background-color: #fff;
+}
 
-        element.value = localStorage.getItem(element.name);
+option {
+  color: #000;
+  background-color: #fff;
+}
 
-      }
+  </style>
+</head><body>
+  <div class="container">
+    <form action="results.html" method="GET">
+      <label>Student's Name</label>
+      <input type="text" name="STUDENT'S NAME" required><label>Date</label>
+  <input type="date" name="LESSON DATE" required>
 
-    });
+  <label>Time Started</label>
+  <input type="time" name="TIME STARTED" required>
 
-    // Clear localStorage on form reset
+  <label>Time Ended</label>
+  <input type="time" name="TIME ENDED" required>
 
-    document.querySelector('form').addEventListener('reset', () => {
+  <label>Book/Lesson Material</label>
+  <input type="text" name="BOOK/LESSON MATERIAL" required>
 
-      localStorage.clear();
+  <label>Pages</label>
+  <div class="radio-group">
+    <input type="number" name="PAGE" min="1" placeholder="From Page" required>
+    <input type="number" name="TO PAGE" min="1" placeholder="To Page" required>
+  </div>
+
+  <label>Note/Remarks on the Lesson Material</label>
+  <textarea name="NOTE/REMARKS ON THE LESSON MATERIAL" rows="3"></textarea>
+
+  <label>General Assessment</label>
+  <select name="GENERAL_ASSESSMENT" required>
+    <option value="B">B - Some comprehension, limited vocabulary, unclear pronunciation.</option>
+    <option value="B+">B+ - Better comprehension, simple words and grammar, some pronunciation difficulties.</option>
+    <option value="A-">A- - Mostly accurate comprehension, minor mistakes in grammar and pronunciation.</option>
+    <option value="A">A - Good comprehension, minor lapses in grammar and fluency.</option>
+    <option value="A+">A+ - Excellent comprehension, fluent and grammatically correct speech.</option>
+  </select>
+
+  <label>Feedback</label>
+  <textarea name="FEEDBACK" rows="3" required></textarea>
+
+  <label>Suggestions</label>
+  <textarea name="SUGGESTIONS" rows="3" required></textarea>
+
+  <div class="button-group">
+    <button type="reset">Reset</button>
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
+  </div>
+  <script src="js/script.js"></script>
+</body></html>
