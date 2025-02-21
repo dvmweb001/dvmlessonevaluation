@@ -12,9 +12,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 200vh;
+      height: auto;
+      min-height: 100vh;
       margin: 0;
+      padding: 20px;
       font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
     }
 
     .container {
@@ -109,58 +112,54 @@
 
       <label>Pages</label>
       <div class="radio-group">
-        <input type="number" name="PAGE" min="1" required>
-        <input type="number" name="TO PAGE" min="1" required>
+        <input type="number" name="PAGE" min="1" placeholder="From Page" required>
+        <input type="number" name="TO PAGE" min="1" placeholder="To Page" required>
       </div>
 
       <label>Note/Remarks on the Lesson Material</label>
-      <input type="text" name="NOTE/REMARKS ON THE LESSON MATERIAL">
+      <textarea name="NOTE/REMARKS ON THE LESSON MATERIAL" rows="3"></textarea>
 
       <label>Part I: Pronunciation (Mispronounced Words)</label>
-    <select name=" Pronunciation (Mispronounced Words)">
       <div class="radio-group">
-        <input type="text" name="(1)" size="10" required>
-        <input type="text" name="(2)" size="10" required>
-        <input type="text" name="(3)" size="10" required>
-        <input type="text" name="(4)" size="10">
-        <input type="text" name="(5)" size="10">
+        <input type="text" name="MISPRONOUNCED_WORD_1" placeholder="Word 1" required>
+        <input type="text" name="MISPRONOUNCED_WORD_2" placeholder="Word 2" required>
+        <input type="text" name="MISPRONOUNCED_WORD_3" placeholder="Word 3" required>
+        <input type="text" name="MISPRONOUNCED_WORD_4" placeholder="Word 4">
+        <input type="text" name="MISPRONOUNCED_WORD_5" placeholder="Word 5">
       </div>
 
       <label>Part II: Syntax and Grammar</label>
-   <select name="Part II: Syntax and Grammar)">
-
+      <table>
         <tr>
           <th>Incorrect Sentences</th>
           <th>Correct Sentences</th>
         </tr>
         <tr>
-          <td><input type="text" name="(A)" required></td>
-          <td><input type="text" name="(B)" required></td>
+          <td><input type="text" name="INCORRECT_SENTENCE_1" required></td>
+          <td><input type="text" name="CORRECT_SENTENCE_1" required></td>
         </tr>
         <tr>
-          <td><input type="text" name="(A)"></td>
-          <td><input type="text" name="(B)"></td>
+          <td><input type="text" name="INCORRECT_SENTENCE_2"></td>
+          <td><input type="text" name="CORRECT_SENTENCE_2"></td>
         </tr>
         <tr>
-          <td><input type="text" name="(A)"></td>
-          <td><input type="text" name="(B)"></td>
+          <td><input type="text" name="INCORRECT_SENTENCE_3"></td>
+          <td><input type="text" name="CORRECT_SENTENCE_3"></td>
         </tr>
         <tr>
-          <td><input type="text" name="(A)"></td>
-          <td><input type="text" name="(B)"></td>
+          <td><input type="text" name="INCORRECT_SENTENCE_4"></td>
+          <td><input type="text" name="CORRECT_SENTENCE_4"></td>
         </tr>
       </table>
 
       <label>General Assessment</label>
-      <select name="GENERAL ASSESSMENT">
-        <option value=" B Some comprehension, limited vocabulary, unclear pronunciation."></option>
-        <option value="B+ Better comprehension, simple words and grammar, some pronunciation difficulties."></option>
-        <option value="A- Mostly accurate comprehension, minor mistakes in grammar and pronunciation."></option>
-        <option value="A Good comprehension, minor lapses in grammar and fluency."></option>
-        <option value="A+ Excellent comprehension, fluent and grammatically correct speech."></option>
+      <select name="GENERAL_ASSESSMENT" required>
+        <option value="B">B - Some comprehension, limited vocabulary, unclear pronunciation.</option>
+        <option value="B+">B+ - Better comprehension, simple words and grammar, some pronunciation difficulties.</option>
+        <option value="A-">A- - Mostly accurate comprehension, minor mistakes in grammar and pronunciation.</option>
+        <option value="A">A - Good comprehension, minor lapses in grammar and fluency.</option>
+        <option value="A+">A+ - Excellent comprehension, fluent and grammatically correct speech.</option>
       </select>
-
-
 
       <div class="button-group">
         <button type="reset">Reset</button>
