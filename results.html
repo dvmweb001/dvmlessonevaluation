@@ -52,24 +52,36 @@
     <div class="container" id="results-container">
         <h2>Lesson Evaluation Results</h2>
         <div id="results"></div>
-        <button id="exportBtn">Export to PNG</button>
+        <button id="exportBtn">Export to JPEG</button>
         <a href="index.html">Back to Lesson Evaluation</a>
     </div>
 
     <script>
         const resultlist = document.getElementById('results');
+        let studentName = "Student"; // Default name if not provided
+
+        // Retrieve and display evaluation results
         new URLSearchParams(window.location.search).forEach((value, name) => {
+            if (name.toLowerCase() === "name") { // Assume 'name' field contains the student's name
+                studentName = value.replace(/\s+/g, '_'); // Replace spaces with underscores for filename
+            }
             const entry = document.createElement('p');
             entry.textContent = `${name}: ${value}`;
             entry.style.textAlign = "left";
             resultlist.appendChild(entry);
         });
-        
+
         document.getElementById('exportBtn').addEventListener('click', () => {
+            const now = new Date();
+            const formattedDate = now.toISOString().slice(0, 10); // YYYY-MM-DD
+            const formattedTime = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // HH-MM-SS
+
+            const fileName = `${studentName}-${formattedDate}-${formattedTime}.jpeg`;
+
             html2canvas(document.getElementById('results-container')).then(canvas => {
                 const link = document.createElement('a');
-                link.href = canvas.toDataURL("image/png");
-                link.download = "lesson_evaluation_results.png";
+                link.href = canvas.toDataURL("image/jpeg", 0.9);
+                link.download = fileName;
                 link.click();
             });
         });
