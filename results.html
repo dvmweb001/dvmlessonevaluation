@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Results</title>
+    <title>Lesson Evaluation Results</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -57,34 +57,40 @@
     </div>
 
     <script>
-        const resultlist = document.getElementById('results');
-        let studentName = "Student"; // Default name if not provided
+        document.addEventListener("DOMContentLoaded", function () {
+            const resultlist = document.getElementById("results");
+            let studentName = "Student"; // Default if not provided
 
-        // Retrieve and display evaluation results
-        new URLSearchParams(window.location.search).forEach((value, name) => {
-            const entry = document.createElement('p');
-            entry.textContent = `${name}: ${value}`;
-            entry.style.textAlign = "left";
-            resultlist.appendChild(entry);
+            // Retrieve data from URL
+            new URLSearchParams(window.location.search).forEach((value, name) => {
+                const entry = document.createElement("p");
+                entry.textContent = `${name}: ${value}`;
+                entry.style.textAlign = "left";
+                resultlist.appendChild(entry);
 
-            // Capture student's name for file naming (case-insensitive match)
-            if (name.toLowerCase().includes("name")) {
-                studentName = value.trim().replace(/\s+/g, '_'); // Replace spaces with underscores
-            }
-        });
+                // Extract student name from results
+                if (name.toLowerCase().includes("name")) {
+                    studentName = value.trim().replace(/\s+/g, "_");
+                }
+            });
 
-        document.getElementById('exportBtn').addEventListener('click', () => {
-            const now = new Date();
-            const formattedDate = now.toISOString().slice(0, 10); // YYYY-MM-DD
-            const formattedTime = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // HH-MM-SS
+            document.getElementById("exportBtn").addEventListener("click", () => {
+                const now = new Date();
+                const formattedDate = now.toISOString().slice(0, 10); // YYYY-MM-DD
+                const formattedTime = now.toTimeString().split(" ")[0].replace(/:/g, "-"); // HH-MM-SS
+                const fileName = `${studentName}-${formattedDate}-${formattedTime}.jpeg`;
 
-            const fileName = `${studentName}-${formattedDate}-${formattedTime}.jpeg`;
+                html2canvas(document.getElementById("results-container")).then(canvas => {
+                    canvas.toBlob(blob => {
+                        const link = document.createElement("a");
+                        link.href = URL.createObjectURL(blob);
+                        link.download = fileName;
+                        link.click();
 
-            html2canvas(document.getElementById('results-container')).then(canvas => {
-                const link = document.createElement('a');
-                link.href = canvas.toDataURL("image/jpeg", 0.9);
-                link.download = fileName;
-                link.click();
+                        // Revoke object URL to free memory
+                        setTimeout(() => URL.revokeObjectURL(link.href), 100);
+                    }, "image/jpeg", 0.9); // JPEG with high quality
+                });
             });
         });
     </script>
