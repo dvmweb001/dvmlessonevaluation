@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=.75">
+    <meta http-equiv= "X-UA-Compatible" content="ie=edge">
+    <title>results</title>
+</head>
+<body>
+    <center>
+        <div id="results"></div>
+        <a href="file:///D:/Documents/LESSON%20EVALUATION/index.html">BACK TO LESSON EVALUATION</a>
+    <script>
+        const resultlist=document.getElementById('results')
+        new URLSearchParams(window.location.search).forEach((value,name) => 
+        {
+            resultlist.append(`${name}:${value}`)
+            resultlist.append(document.createElement('br'))
+        })
+    </script>
+    </center>
+</body>
+</html>
