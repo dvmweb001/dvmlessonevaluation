@@ -2,21 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=.75">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Results</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <center>
+    <div class="container" id="results-container">
+        <h2>Lesson Evaluation Results</h2>
         <div id="results"></div>
-        <a href="index.html">BACK TO LESSON EVALUATION</a>
+        <button id="exportBtn">Export to PNG</button>
+        <a href="index.html">Back to Lesson Evaluation</a>
+    </div>
+
     <script>
         const resultlist = document.getElementById('results');
         new URLSearchParams(window.location.search).forEach((value, name) => {
-            resultlist.append(`${name}: ${value}`);
-            resultlist.append(document.createElement('br'));
+            const entry = document.createElement('p');
+            entry.textContent = `${name}: ${value}`;
+            resultlist.appendChild(entry);
+        });
+        
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            html2canvas(document.getElementById('results-container')).then(canvas => {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL("image/png");
+                link.download = "lesson_evaluation_results.png";
+                link.click();
+            });
         });
     </script>
-    </center>
 </body>
 </html>
