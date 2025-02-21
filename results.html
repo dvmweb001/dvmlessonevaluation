@@ -42,8 +42,10 @@
         <h2>Lesson Evaluation Results</h2>
         <div id="results"></div>
         <button id="backBtn">Back to Lesson Evaluation</button>
+        <button id="exportBtn">Export as PNG</button>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const resultlist = document.getElementById("results");
@@ -59,6 +61,22 @@
             // Back button event listener
             document.getElementById("backBtn").addEventListener("click", () => {
                 window.location.href = "index.html"; // Redirect back to the lesson evaluation page
+            });
+
+            // Export button event listener
+            document.getElementById("exportBtn").addEventListener("click", () => {
+                const studentName = new URLSearchParams(window.location.search).get('studentName') || 'Unknown';
+                const date = new Date();
+                const formattedDate = `${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}${date.getFullYear()}`;
+                const formattedTime = `${String(date.getHours()).padStart(2, '0')}${String(date.getMinutes()).padStart(2, '0')}`;
+                const fileName = `${studentName}-${formattedDate}-${formattedTime}.png`;
+
+                html2canvas(document.getElementById("results-container")).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = fileName;
+                    link.href = canvas.toDataURL("image/png");
+                    link.click();
+                });
             });
         });
     </script>
