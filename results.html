@@ -62,13 +62,15 @@
 
         // Retrieve and display evaluation results
         new URLSearchParams(window.location.search).forEach((value, name) => {
-            if (name.toLowerCase() === "name") { // Assume 'name' field contains the student's name
-                studentName = value.replace(/\s+/g, '_'); // Replace spaces with underscores for filename
-            }
             const entry = document.createElement('p');
             entry.textContent = `${name}: ${value}`;
             entry.style.textAlign = "left";
             resultlist.appendChild(entry);
+
+            // Capture student's name for file naming (case-insensitive match)
+            if (name.toLowerCase().includes("name")) {
+                studentName = value.trim().replace(/\s+/g, '_'); // Replace spaces with underscores
+            }
         });
 
         document.getElementById('exportBtn').addEventListener('click', () => {
