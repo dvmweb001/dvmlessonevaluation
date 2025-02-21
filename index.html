@@ -1,187 +1,34 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Lesson Evaluation</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: auto;
-      min-height: 200vh;
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background-color: #FFFFFF;
-    }.container {
-  width: 100%;
-  max-width: 600px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
-  border-radius: 8px;
-}
 
-form {
-  display: flex;
-  flex-direction: column;
-}
+        syntaxCount++;
 
-label {
-  margin-top: 10px;
-  font-weight: bold;
-}
+      } else {
 
-input,
-select,
-textarea,
-button {
-  margin-top: 5px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
+        alert('Maximum of 4 sentences allowed.');
 
-.radio-group {
-  display: flex;
-  gap: 5px;
-}
+      }
 
-table {
-  width: 75%;
-  margin-top: 5px;
-  border-collapse: collapse;
-}
+    }
 
-table td,
-table th {
-  border: 1px solid #ccc;
-  padding: 4px;
-  text-align: left;
-}
+    // Save form data to localStorage
 
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
+    document.querySelectorAll('input, textarea, select').forEach(element => {
 
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
+      element.addEventListener('input', () => {
 
-button[type="reset"] {
-  background-color: #f44336;
-  color: white;
-}
+        localStorage.setItem(element.name, element.value);
 
-button[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
-}
+      });
 
-select {
-  color: #000;
-  background-color: #fff;
-}
+      if (localStorage.getItem(element.name)) {
 
-option {
-  color: #000;
-  background-color: #fff;
-}
+        element.value = localStorage.getItem(element.name);
 
-  </style>
-</head><body>
-  <div class="container">
-    <form action="results.html" method="GET">
-      <label>Student's Name</label>
-      <input type="text" name="STUDENT'S NAME" required><label>Date</label>
-  <input type="date" name="LESSON DATE" required>
+      }
 
-  <label>Time Started</label>
-  <input type="time" name="TIME STARTED" required>
+    });
 
-  <label>Time Ended</label>
-  <input type="time" name="TIME ENDED" required>
+    // Clear localStorage on form reset
 
-  <label>Book/Lesson Material</label>
-  <input type="text" name="BOOK/LESSON MATERIAL" required>
+    document.querySelector('form').addEventListener('reset', () => {
 
-  <label>Pages</label>
-  <div class="radio-group">
-    <input type="number" name="PAGE" min="1" placeholder="From Page" required>
-    <input type="number" name="TO PAGE" min="1" placeholder="To Page" required>
-  </div>
-
-  <label>Note/Remarks on the Lesson Material</label>
-  <textarea name="NOTE/REMARKS ON THE LESSON MATERIAL" rows="3"></textarea>
-
-  <label>Part I: Pronunciation (Mispronounced Words)</label>
-  <div class="radio-group">
-    <input type="text" name="MISPRONOUNCED WORD 1" placeholder="Word 1" required>
-    <input type="text" name="MISPRONOUNCED WORD 2" placeholder="Word 2" required>
-  </div>
-  <div class="radio-group">
-    <input type="text" name="MISPRONOUNCED WORD 3" placeholder="Word 3">
-    <input type="text" name="MISPRONOUNCED WORD 4" placeholder="Word 4">
-  </div>
-  <div class="radio-group">
-    <input type="text" name="MISPRONOUNCED WORD 5" placeholder="Word 5">
-    <input type="text" name="MISPRONOUNCED WORD 6" placeholder="Word 6">
-  </div>
-
-  <label>Part II: Syntax and Grammar</label>
-  <table>
-    <tr>
-      <th>Incorrect Sentences</th>
-      <th>Correct Sentences</th>
-    </tr>
-    <tr>
-      <td><input type="text" name="INCORRECT SENTENCE 1" required></td>
-      <td><input type="text" name="CORRECT SENTENCE 1" required></td>
-    </tr>
-    <tr>
-      <td><input type="text" name="INCORRECT SENTENCE 2"></td>
-      <td><input type="text" name="CORRECT SENTENCE 2"></td>
-    </tr>
-    <tr>
-      <td><input type="text" name="INCORRECT SENTENCE 3"></td>
-      <td><input type="text" name="CORRECT SENTENCE 3"></td>
-    </tr>
-    <tr>
-      <td><input type="text" name="INCORRECT SENTENCE 4"></td>
-      <td><input type="text" name="CORRECT SENTENCE 4"></td>
-    </tr>
-  </table>
-
-  <label>General Assessment</label>
-  <select name="GENERAL_ASSESSMENT" required>
-    <option value="B">B - Some comprehension, limited vocabulary, unclear pronunciation.</option>
-    <option value="B+">B+ - Better comprehension, simple words and grammar, some pronunciation difficulties.</option>
-    <option value="A-">A- - Mostly accurate comprehension, minor mistakes in grammar and pronunciation.</option>
-    <option value="A">A - Good comprehension, minor lapses in grammar and fluency.</option>
-    <option value="A+">A+ - Excellent comprehension, fluent and grammatically correct speech.</option>
-  </select>
-
-  <label>Feedback</label>
-  <textarea name="FEEDBACK" rows="3" required></textarea>
-
-  <label>Suggestions</label>
-  <textarea name="SUGGESTIONS" rows="3" required></textarea>
-
-  <div class="button-group">
-    <button type="reset">Reset</button>
-    <button type="submit">Submit</button>
-  </div>
-</form>
-
-  </div>
-  <script src="script.js"></script>
-</body>
-
-</html>
+      localStorage.clear();
