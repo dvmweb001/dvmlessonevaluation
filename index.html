@@ -1,218 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LESSON EVALUATION </title>
+    <title>Lesson Evaluation</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <center>
+    <div class="container">
         <form action="results.html" method="GET">
-            <input type="hidden" name="Please copy and paste the results or your may Ctrl+P save as [PDF] to save the result.">
-            <input type="hidden" name="****">
-            <div>
-                <label>STUDENT'S NAME </label>
-                <input name="STUDENT'S NAME" required>
+            <label>Student's Name</label>
+            <input type="text" name="STUDENT'S NAME" required>
+            
+            <label>Date</label>
+            <input type="date" name="LESSON DATE" required>
+            
+            <label>Time Started</label>
+            <input type="time" name="TIME STARTED" required>
+            
+            <label>Time Ended</label>
+            <input type="time" name="TIME ENDED" required>
+            
+            <label>Book/Lesson Material</label>
+            <input type="text" name="BOOK/LESSON MATERIAL" required>
+            
+            <label>Pages</label>
+            <div class="radio-group">
+                <input type="number" name="PAGE" min="1" required>
+                <input type="number" name="TO PAGE" min="1" required>
             </div>
-            <div>
-                <label>DATE</label>
-                <input type="date" name="LESSON DATE" id="date" required>
+            
+            <label>Note/Remarks on the Lesson Material</label>
+            <input type="text" name="NOTE/REMARKS ON THE LESSON MATERIAL">
+            
+            <label>Part I: Pronunciation (Mispronounced Words)</label>
+            <div class="radio-group">
+                <input type="text" name="(1)" size="10" required>
+                <input type="text" name="(2)" size="10" required>
+                <input type="text" name="(3)" size="10" required>
+                <input type="text" name="(4)" size="10">
+                <input type="text" name="(5)" size="10">
             </div>
-            <div>
-                <label>TIME STARTED</label>
-                <input type="time" name="TIME STARTED" id="TIME" required>
-                <label>TIME ENDED</label>
-                <input type="time" name="TIME ENDED" id="TIME" required>
-            </div>
-            </div>
-            <div>
-                <label>BOOK/LESSON MATERIAL</label>
-                <input name="BOOK/LESSON MATERIAL" required>
-            </div>
-            <div>
-                <label>PAGES</label>
-                <input type="number" name="PAGE" id="PAGE" size="5" min="1" required>
-                <input type="number" name="TO PAGE" id="PAGE" size="5" min="1"required>
-            </div>
-            <label>NOTE/REMARKS ON THE LESSON MATERIAL</label>
-            <div>
-                <input name="NOTE/REMARKS ON THE LESSON MATERIAL">
-            </div> 
-            <input type="hidden" name="****">           
-     </br>
-            <LABEL>PART I. PRONUNCIATION</LABEL>
-            </br>
-            <input type="hidden" name="PART I. PRONUNCIATION" id="text">
-            </br>
-            <DIV>
-                <input type="hidden" name="MISPRONOUNCED WORDS" id="text">
-                <input type="text" name="(1)" id="text" size="10" required>
-                <input type="text" name="(2)" id="text" size="10" required>
-                <input type="text" name="(3)" id="text" size="10" required>
-                <input type="text" name="(4)" id="text" size="10">
-                <input type="text" name="(5)" id="text" size="10">
-                <input type="text" name="(6)" id="text" size="10">
-                <input type="text" name="(7)" id="text" size="10">
-                <input type="text" name="(8)" id="text" size="10">
-                <input type="text" name="(9)" id="text" size="10">
-                <input type="text" name="(10)" id="text" size="10">
-            </DIV>
-            <input type="hidden" name="****">
-            </br>
-            <label>PART II. SYNTAX AND GRAMMAR</label>
-            <input type="hidden" name="PART II. SYNTAX AND GRAMMAR" id="text">
-            <input type="hidden" name="INCORRECT[A] AND CORRECT [B] SENTENCES" id="text">
-            </br>
+            
+            <label>Part II: Syntax and Grammar</label>
             <table>
-                <TH>INCORRECT SENTENCES</TH>
-                <TH>CORRECT SENTENCES</TH>
-                </TR>
-                </br>
-                <TR>
-                    <TD><input type="text" name="(A)" id="text" size="50" required></TD>
-                    <TD><input type="text" name="(B)" id="text" size="50" required></TD>
-                </TR>
-                <input type="hidden" name="****">
-                <TR>
-                    <TD><input type="text" name="(A)" id="text" size="50" required></TD>
-                    <TD><input type="text" name="(B)" id="text" size="50" required></TD>
-                </TR>
-                <input type="hidden" name="****">
-                <TR>
-                    <TD><input type="text" name="(A)" id="text" size="50"></TD>
-                    <TD><input type="text" name="(B)" id="text" size="50"></TD>
-                </TR>
-                <input type="hidden" name="****">
-                <TR>
-                    <TD><input type="text" name="(A)" id="text" size="50"></TD>
-                    <TD><input type="text" name="(B)" id="text" size="50"></TD>
-                </TR>
-                <input type="hidden" name="****">
-                <TR>
-                    <TD><input type="text" name="(A)" id="text" size="50"></TD>
-                    <TD><input type="text" name="(B)" id="text" size="50"></TD>
-                </TR>
-                <input type="hidden" name="****">
-                <TR>
-                    <TD><input type="text" name="(A)" id="text" size="50"></TD>
-                    <TD><input type="text" name="(B)" id="text" size="50"></TD>
-                </TR>
-                <input type="hidden" name="****">
-                <TR>
-                    <TD><input type="text" name="(A)" id="text" size="50"></TD>
-                    <TD><input type="text" name="(B)" id="text" size="50"></TD>
-                </TR>
-                <input type="hidden" name="****">
-                <TR>
-                    <TD><input type="text" name="(A)" id="text" size="50"></TD>
-                    <TD><input type="text" name="(B)" id="text" size="50"></TD>
-                </TR>
-                <input type="hidden" name="****">
-                <TR>
-                    <TD><input type="text" name="(A)" id="text" size="50"></TD>
-                    <TD><input type="text" name="(B)" id="text" size="50"></TD>
-                </TR>
-                <input type="hidden" name="****">
-                <TR>
-                    <TD><input type="text" name="(A)" id="text" size="50"></TD>
-                    <TD><input type="text" name="(B)" id="text" size="50"></TD>
-                </TR>
+                <tr>
+                    <th>Incorrect Sentences</th>
+                    <th>Correct Sentences</th>
+                </tr>
+                <tr><td><input type="text" name="(A)" required></td><td><input type="text" name="(B)" required></td></tr>
+                <tr><td><input type="text" name="(A)" required></td><td><input type="text" name="(B)" required></td></tr>
+                <tr><td><input type="text" name="(A)" required></td><td><input type="text" name="(B)" required></td></tr>
+                <tr><td><input type="text" name="(A)" required></td><td><input type="text" name="(B)" required></td></tr>
             </table>
-            </br>
-            <input type="hidden" name="****">
-            <div><LABEL>PART III. ASSESSMENT</LABEL></div>
-            <input type="hidden" name="PART III. ASSESSMENT">
-        </br>
-            <div><label>AREA THAT NEEDS TO IMPROVE</label></div>
-            <div>
-            <label for="AREA THAT NEEDS TO IMPROVE">Vocabulary</label>
-            <input type="radio" name="AREA THAT NEEDS TO IMPROVE" id="AREA THAT NEEDS TO IMPROVE" value="Vocabulary">
-            <label for="AREA THAT NEEDS TO IMPROVE">Grammar</label>
-            <input type="radio" name="AREA THAT NEEDS TO IMPROVE" id="AREA THAT NEEDS TO IMPROVE" value="Grammar">
-            <label for="AREA THAT NEEDS TO IMPROVE">Pronunciation</label>
-            <input type="radio" name="AREA THAT NEEDS TO IMPROVE" id="AREA THAT NEEDS TO IMPROVE" value="Pronunciation">
-            <label for="AREA THAT NEEDS TO IMPROVE">Listening</label>
-            <input type="radio" name="AREA THAT NEEDS TO IMPROVE" id="AREA THAT NEEDS TO IMPROVE" value="Listening">
-            <label for="AREA THAT NEEDS TO IMPROVE">Fluency</label>
-            <input type="radio" name="AREA THAT NEEDS TO IMPROVE" id="AREA THAT NEEDS TO IMPROVE" value="Fluency">
-            <label for="AREA THAT NEEDS TO IMPROVE">Reading</label>
-            <input type="radio" name="AREA THAT NEEDS TO IMPROVE" id="AREA THAT NEEDS TO IMPROVE" value="Reading">
+            
+            <label>General Assessment</label>
+            <select name="GENERAL ASSESSMENT">
+                <option value="B">B</option>
+                <option value="B+">B+</option>
+                <option value="A-">A-</option>
+                <option value="A">A</option>
+                <option value="A+">A+</option>
+            </select>
+            
+            <p><b>B:</b> Some comprehension, limited vocabulary, unclear pronunciation.</p>
+            <p><b>B+:</b> Better comprehension, simple words and grammar, some pronunciation difficulties.</p>
+            <p><b>A-:</b> Mostly accurate comprehension, minor mistakes in grammar and pronunciation.</p>
+            <p><b>A:</b> Good comprehension, minor lapses in grammar and fluency.</p>
+            <p><b>A+:</b> Excellent comprehension, fluent and grammatically correct speech.</p>
+            
+            <div class="button-group">
+                <button type="reset">Reset</button>
+                <button type="submit">Submit</button>
             </div>
-        </br>
-            <div>
-                <label>GENERAL ASSESSMENT</label>
-            </div>
-            <div>
-                <label for="B">B</label>
-                <input type="radio" name="GENNERAL ASSESSMENT" id="B" value="(B) Able to comprehend some of the lesson tasks and respond with difficulties;
-            Able to use very limited words, grammar or syntax;
-            Able to speak key words only with unclear or awkward pronunciation.">
-                <label for="B+">B+</label>
-                <input type="radio" name="GENNERAL ASSESSMENT" id="B+" value="(B+) Able to comprehend most lesson tasks and respond;
-            Able to use mainly simple words, grammar or syntax;
-            Able to speak with fluidity but noticeable difficulties with pronunciation.">
-                <label for="-A">-A</label>
-                <input type="radio" name="GENNERAL ASSESSMENT" id="B+" value=" (A-) Able to comprehend lesson tasks and respond, but with a few difficulties;
-            Able to use words, grammar or syntax with inaccuracy and a few mistakes;
-            Able to speak well but with pauses or hesitation. A few mistakes in pronunciation.">
-                <label for="A">A</label>
-                <input type="radio" name="GENNERAL ASSESSMENT" id="B+" value="(A) Able to comprehend lesson tasks and respond well with minor lapses;
-            Able to use proper words, grammar and syntax with minor lapses;
-            Able to speak relatively fluently with good pronunciation.">
-                <label for="A+">A+</label>
-                <input type="radio" name="GENNERAL ASSESSMENT" id="B+" value="(A+) Able to fully comprehend lesson tasks and respond spontaneously;
-            Able to use proper words, grammar and syntax;
-            Able to speak fluently with good pronunciation.">
-            </div>
-            </br>
-            <div>
-                <LABEL>
-                    (B) Able to comprehend some of the lesson tasks and respond with difficulties;
-                    Able to use very limited words, grammar or syntax;
-                    Able to speak key words only with unclear or awkward pronunciation.</LABEL>
-            </div>
-            </br>
-            <div>
-                <LABEL>
-                    (B+) Able to comprehend most lesson tasks and respond;
-                    Able to use mainly simple words, grammar or syntax;
-                    Able to speak with fluidity but noticeable difficulties with pronunciation.
-                </LABEL>
-            </div>
-            </br>
-            <div>
-                <LABEL>(A-) Able to comprehend lesson tasks and respond, but with a few difficulties; Able to use words,
-                    grammar or syntax with inaccuracy and a few mistakes;Able to speak well but with pauses or
-                    hesitation. A few mistakes in pronunciation.</LABEL>
-            </div>
-            </br>
-            <div>
-                <LABEL>(A) Able to comprehend lesson tasks and respond well with minor lapses;Able to use proper words,
-                    grammar and syntax with minor lapses;Able to speak relatively fluently with good
-                    pronunciation.</LABEL>
-            </div>
-            </br>
-            <div>
-                <label>(A+) Able to fully comprehend lesson tasks and respond spontaneously;Able to use proper words,
-                    grammar and syntax; Able to speak fluently with good pronunciation.</label>
-            </div>
-            </br>
-            <div>
-                <label>FEEDBACK</label>
-                <input type="text" name="FEEDBACK" id="text" size="150"> 
-            </div>
-            <div>
-                <label>SUGGESTIONS</label>
-                <input type="text" name="SUGGESSTIONS" id="text" size="150">
-            </div>
-            <div>
-                <button type="reset">RESET</button>
-                <button>SUBMIT</button>
-            </div>
-            </DIV>
-    </center>
-    </form>
+        </form>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
