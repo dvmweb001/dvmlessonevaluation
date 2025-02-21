@@ -1,81 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lesson Evaluation</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lesson Evaluation</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      margin-top: 5px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+    }
+
+    table td,
+    table th {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button[type="reset"] {
+      background-color: #f44336;
+      color: white;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <form action="results.html" method="GET">
-            <label>Student's Name</label>
-            <input type="text" name="STUDENT'S NAME" required>
-    </div>
-            <label>Date</label>
-            <input type="date" name="LESSON DATE" required>
-    <div>
-            <label>Time Started</label>
-            <input type="time" name="TIME STARTED" required>
-    </div>
-            <label>Time Ended</label>
-            <input type="time" name="TIME ENDED" required>
-    <div>
-            <label>Book/Lesson Material</label>
-            <input type="text" name="BOOK/LESSON MATERIAL" required>
-    </div>
-            <label>Pages</label>
-            <div class="radio-group">
-                <input type="number" name="PAGE" min="1" required>
-                <input type="number" name="TO PAGE" min="1" required>
-            </div>
-            
-            <label>Note/Remarks on the Lesson Material</label>
-            <input type="text" name="NOTE/REMARKS ON THE LESSON MATERIAL">
-            
-            <label>Part I: Pronunciation (Mispronounced Words)</label>
-            <div class="radio-group">
-                <input type="text" name="(1)" size="10" required>
-                <input type="text" name="(2)" size="10" required>
-                <input type="text" name="(3)" size="10" required>
-                <input type="text" name="(4)" size="10">
-                <input type="text" name="(5)" size="10">
-            </div>
-            
-            <label>Part II: Syntax and Grammar</label>
-            <table>
-                <tr>
-                    <th>Incorrect Sentences</th>
-                    <th>Correct Sentences</th>
-                </tr>
-                <tr><td><input type="text" name="(A)" required></td><td><input type="text" name="(B)" required></td></tr>
-                <tr><td><input type="text" name="(A)" required></td><td><input type="text" name="(B)" required></td></tr>
-                <tr><td><input type="text" name="(A)" required></td><td><input type="text" name="(B)" required></td></tr>
-                <tr><td><input type="text" name="(A)" required></td><td><input type="text" name="(B)" required></td></tr>
-            </table>
-            
-            <label>General Assessment</label>
-            <select name="GENERAL ASSESSMENT">
-                <option value="B">B</option>
-                <option value="B+">B+</option>
-                <option value="A-">A-</option>
-                <option value="A">A</option>
-                <option value="A+">A+</option>
-            </select>
-            
-            <p><b>B:</b> Some comprehension, limited vocabulary, unclear pronunciation.</p>
-            <p><b>B+:</b> Better comprehension, simple words and grammar, some pronunciation difficulties.</p>
-            <p><b>A-:</b> Mostly accurate comprehension, minor mistakes in grammar and pronunciation.</p>
-            <p><b>A:</b> Good comprehension, minor lapses in grammar and fluency.</p>
-            <p><b>A+:</b> Excellent comprehension, fluent and grammatically correct speech.</p>
-            
-            <div class="button-group">
-                <button type="reset">Reset</button>
-                <button type="submit">Submit</button>
-            </div>
-        </form>
-    </div>
-    <script src="script.js"></script>
+  <div class="container">
+    <form action="results.html" method="GET">
+      <label>Student's Name</label>
+      <input type="text" name="STUDENT'S NAME" required>
+
+      <label>Date</label>
+      <input type="date" name="LESSON DATE" required>
+
+      <label>Time Started</label>
+      <input type="time" name="TIME STARTED" required>
+
+      <label>Time Ended</label>
+      <input type="time" name="TIME ENDED" required>
+
+      <label>Book/Lesson Material</label>
+      <input type="text" name="BOOK/LESSON MATERIAL" required>
+
+      <label>Pages</label>
+      <div class="radio-group">
+        <input type="number" name="PAGE" min="1" required>
+        <input type="number" name="TO PAGE" min="1" required>
+      </div>
+
+      <label>Note/Remarks on the Lesson Material</label>
+      <input type="text" name="NOTE/REMARKS ON THE LESSON MATERIAL">
+
+      <label>Part I: Pronunciation (Mispronounced Words)</label>
+      <div class="radio-group">
+        <input type="text" name="(1)" size="10" required>
+        <input type="text" name="(2)" size="10" required>
+        <input type="text" name="(3)" size="10" required>
+        <input type="text" name="(4)" size="10">
+        <input type="text" name="(5)" size="10">
+      </div>
+
+      <label>Part II: Syntax and Grammar</label>
+      <table>
+        <tr>
+          <th>Incorrect Sentences</th>
+          <th>Correct Sentences</th>
+        </tr>
+        <tr>
+          <td><input type="text" name="(A)" required></td>
+          <td><input type="text" name="(B)" required></td>
+        </tr>
+        <tr>
+          <td><input type="text" name="(A)" required></td>
+          <td><input type="text" name="(B)" required></td>
+        </tr>
+        <tr>
+          <td><input type="text" name="(A)" required></td>
+          <td><input type="text" name="(B)" required></td>
+        </tr>
+        <tr>
+          <td><input type="text" name="(A)" required></td>
+          <td><input type="text" name="(B)" required></td>
+        </tr>
+      </table>
+
+      <label>General Assessment</label>
+      <select name="GENERAL ASSESSMENT">
+        <option value="B">B</option>
+        <option value="B+">B+</option>
+        <option value="A-">A-</option>
+        <option value="A">A</option>
+        <option value="A+">A+</option>
+      </select>
+
+      <p><b>B:</b> Some comprehension, limited vocabulary, unclear pronunciation.</p>
+      <p><b>B+:</b> Better comprehension, simple words and grammar, some pronunciation difficulties.</p>
+      <p><b>A-:</b> Mostly accurate comprehension, minor mistakes in grammar and pronunciation.</p>
+      <p><b>A:</b> Good comprehension, minor lapses in grammar and fluency.</p>
+      <p><b>A+:</b> Excellent comprehension, fluent and grammatically correct speech.</p>
+
+      <div class="button-group">
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+  <script src="script.js"></script>
 </body>
+
 </html>
