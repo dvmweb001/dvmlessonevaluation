@@ -121,6 +121,44 @@ option {
   <label>Note/Remarks on the Lesson Material</label>
   <textarea name="NOTE/REMARKS ON THE LESSON MATERIAL" rows="3"></textarea>
 
+  <label>Part I: Pronunciation (Mispronounced Words)</label>
+  <div class="radio-group">
+    <input type="text" name="MISPRONOUNCED WORD 1" placeholder="Word 1" required>
+    <input type="text" name="MISPRONOUNCED WORD 2" placeholder="Word 2" required>
+  </div>
+  <div class="radio-group">
+    <input type="text" name="MISPRONOUNCED WORD 3" placeholder="Word 3">
+    <input type="text" name="MISPRONOUNCED WORD 4" placeholder="Word 4">
+  </div>
+  <div class="radio-group">
+    <input type="text" name="MISPRONOUNCED WORD 5" placeholder="Word 5">
+    <input type="text" name="MISPRONOUNCED WORD 6" placeholder="Word 6">
+  </div>
+  
+  <label>Part II: Syntax and Grammar</label>
+  <table>
+    <tr>
+      <th>Incorrect Sentences</th>
+      <th>Correct Sentences</th>
+    </tr>
+    <tr>
+      <td><input type="text" name="INCORRECT SENTENCE 1" required></td>
+      <td><input type="text" name="CORRECT SENTENCE 1" required></td>
+    </tr>
+    <tr>
+      <td><input type="text" name="INCORRECT SENTENCE 2"></td>
+      <td><input type="text" name="CORRECT SENTENCE 2"></td>
+    </tr>
+    <tr>
+      <td><input type="text" name="INCORRECT SENTENCE 3"></td>
+      <td><input type="text" name="CORRECT SENTENCE 3"></td>
+    </tr>
+    <tr>
+      <td><input type="text" name="INCORRECT SENTENCE 4"></td>
+      <td><input type="text" name="CORRECT SENTENCE 4"></td>
+    </tr>
+  </table>
+
   <label>General Assessment</label>
   <select name="GENERAL_ASSESSMENT" required>
     <option value="B">B - Some comprehension, limited vocabulary, unclear pronunciation.</option>
@@ -129,12 +167,12 @@ option {
     <option value="A">A - Good comprehension, minor lapses in grammar and fluency.</option>
     <option value="A+">A+ - Excellent comprehension, fluent and grammatically correct speech.</option>
   </select>
-
+  
   <label>Feedback</label>
-  <textarea name="FEEDBACK" rows="3" required></textarea>
-
+  <textarea name="FEEDBACK" rows="3"></textarea>
+  
   <label>Suggestions</label>
-  <textarea name="SUGGESTIONS" rows="3" required></textarea>
+  <textarea name="SUGGESTIONS" rows="3"></textarea>
 
   <div class="button-group">
     <button type="reset">Reset</button>
