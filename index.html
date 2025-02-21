@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -18,169 +15,171 @@
       padding: 20px;
       font-family: Arial, sans-serif;
       background-color: #FFFFFF;
-    }
+    }.container {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
 
-    .container {
-      width: 100%;
-      max-width: 600px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      background-color: #f9f9f9;
-      border-radius: 8px;
-    }
+form {
+  display: flex;
+  flex-direction: column;
+}
 
-    form {
-      display: flex;
-      flex-direction: column;
-    }
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
 
-    label {
-      margin-top: 10px;
-      font-weight: bold;
-    }
+input,
+select,
+textarea,
+button {
+  margin-top: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-    input,
-    select,
-    textarea,
-    button {
-      margin-top: 5px;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+.radio-group {
+  display: flex;
+  gap: 5px;
+}
 
-    .radio-group {
-      display: flex;
-      gap: 5px;
-    }
+table {
+  width: 75%;
+  margin-top: 5px;
+  border-collapse: collapse;
+}
 
-    table {
-      width: 75%;
-      margin-top: 5px;
-      border-collapse: collapse;
-    }
+table td,
+table th {
+  border: 1px solid #ccc;
+  padding: 4px;
+  text-align: left;
+}
 
-    table td,
-    table th {
-      border: 1px solid #ccc;
-      padding: 4px;
-      text-align: left;
-    }
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
 
-    .button-group {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+button[type="reset"] {
+  background-color: #f44336;
+  color: white;
+}
 
-    button[type="reset"] {
-      background-color: #f44336;
-      color: white;
-    }
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
 
-    button[type="submit"] {
-      background-color: #4CAF50;
-      color: white;
-    }
+select {
+  color: #000;
+  background-color: #fff;
+}
 
-    /* Fix for General Assessment dropdown */
-    select {
-      color: #000; /* Set the text color to black */
-      background-color: #fff; /* Set the background color to white */
-    }
+option {
+  color: #000;
+  background-color: #fff;
+}
 
-    option {
-      color: #000; /* Ensure the text color inside options is black */
-      background-color: #fff; /* Ensure the background color inside options is white */
-    }
   </style>
-</head>
-
-<body>
+</head><body>
   <div class="container">
     <form action="results.html" method="GET">
       <label>Student's Name</label>
-      <input type="text" name="STUDENT'S NAME" required>
+      <input type="text" name="STUDENT'S NAME" required><label>Date</label>
+  <input type="date" name="LESSON DATE" required>
 
-      <label>Date</label>
-      <input type="date" name="LESSON DATE" required>
+  <label>Time Started</label>
+  <input type="time" name="TIME STARTED" required>
 
-      <label>Time Started</label>
-      <input type="time" name="TIME STARTED" required>
+  <label>Time Ended</label>
+  <input type="time" name="TIME ENDED" required>
 
-      <label>Time Ended</label>
-      <input type="time" name="TIME ENDED" required>
+  <label>Book/Lesson Material</label>
+  <input type="text" name="BOOK/LESSON MATERIAL" required>
 
-      <label>Book/Lesson Material</label>
-      <input type="text" name="BOOK/LESSON MATERIAL" required>
+  <label>Pages</label>
+  <div class="radio-group">
+    <input type="number" name="PAGE" min="1" placeholder="From Page" required>
+    <input type="number" name="TO PAGE" min="1" placeholder="To Page" required>
+  </div>
 
-      <label>Pages</label>
-      <div class="radio-group">
-        <input type="number" name="PAGE" min="1" placeholder="From Page" required>
-        <input type="number" name="TO PAGE" min="1" placeholder="To Page" required>
-      </div>
+  <label>Note/Remarks on the Lesson Material</label>
+  <textarea name="NOTE/REMARKS ON THE LESSON MATERIAL" rows="3"></textarea>
 
-      <label>Note/Remarks on the Lesson Material</label>
-      <textarea name="NOTE/REMARKS ON THE LESSON MATERIAL" rows="3"></textarea>
+  <label>Part I: Pronunciation (Mispronounced Words)</label>
+  <div class="radio-group">
+    <input type="text" name="MISPRONOUNCED WORD 1" placeholder="Word 1" required>
+    <input type="text" name="MISPRONOUNCED WORD 2" placeholder="Word 2" required>
+  </div>
+  <div class="radio-group">
+    <input type="text" name="MISPRONOUNCED WORD 3" placeholder="Word 3">
+    <input type="text" name="MISPRONOUNCED WORD 4" placeholder="Word 4">
+  </div>
+  <div class="radio-group">
+    <input type="text" name="MISPRONOUNCED WORD 5" placeholder="Word 5">
+    <input type="text" name="MISPRONOUNCED WORD 6" placeholder="Word 6">
+  </div>
 
-      <label>Part I: Pronunciation (Mispronounced Words)</label>
-      <div class="radio-group">
-        <input type="text" name="MISPRONOUNCED WORD 1" placeholder="Word 1" required>
-        <input type="text" name="MISPRONOUNCED WORD 2" placeholder="Word 2" required>
-      </div>
-       <div class="radio-group">
-        <input type="text" name="MISPRONOUNCED WORD 3" placeholder="Word 3">
-        <input type="text" name="MISPRONOUNCED WORD 4" placeholder="Word 4">
-      </div>
-       <div class="radio-group">
-        <input type="text" name="MISPRONOUNCED WORD 5" placeholder="Word 5">
-        <input type="text" name="MISPRONOUNCED WORD 6" placeholder="Word 6">
-      </div>
-      <label>Part II: Syntax and Grammar</label>
-      <table>
-        <tr>
-          <th>Incorrect Sentences</th>
-          <th>Correct Sentences</th>
-        </tr>
-        <tr>
-          <td><input type="text" name="INCORRECT SENTENCE 1" required></td>
-          <td><input type="text" name="CORRECT SENTENCE 1" required></td>
-        </tr>
-        <tr>
-          <td><input type="text" name="INCORRECT SENTENCE 2"></td>
-          <td><input type="text" name="CORRECT SENTENCE 2"></td>
-        </tr>
-        <tr>
-          <td><input type="text" name="INCORRECT SENTENCE 3"></td>
-          <td><input type="text" name="CORRECT SENTENCE 3"></td>
-        </tr>
-        <tr>
-          <td><input type="text" name="INCORRECT SENTENCE 4"></td>
-          <td><input type="text" name="CORRECT SENTENCE 4"></td>
-        </tr>
-      </table>
+  <label>Part II: Syntax and Grammar</label>
+  <table>
+    <tr>
+      <th>Incorrect Sentences</th>
+      <th>Correct Sentences</th>
+    </tr>
+    <tr>
+      <td><input type="text" name="INCORRECT SENTENCE 1" required></td>
+      <td><input type="text" name="CORRECT SENTENCE 1" required></td>
+    </tr>
+    <tr>
+      <td><input type="text" name="INCORRECT SENTENCE 2"></td>
+      <td><input type="text" name="CORRECT SENTENCE 2"></td>
+    </tr>
+    <tr>
+      <td><input type="text" name="INCORRECT SENTENCE 3"></td>
+      <td><input type="text" name="CORRECT SENTENCE 3"></td>
+    </tr>
+    <tr>
+      <td><input type="text" name="INCORRECT SENTENCE 4"></td>
+      <td><input type="text" name="CORRECT SENTENCE 4"></td>
+    </tr>
+  </table>
 
-      <label>General Assessment</label>
-      <select name="GENERAL_ASSESSMENT" required>
-        <option value="B(Some comprehension, limited vocabulary, unclear pronunciation.)">B - Some comprehension, limited vocabulary, unclear pronunciation.</option>
-        <option value="B+(Better comprehension, simple words and grammar, some pronunciation difficulties.)">B+ - Better comprehension, simple words and grammar, some pronunciation difficulties.</option>
-        <option value="A-(Mostly accurate comprehension, minor mistakes in grammar and pronunciation.)">A- - Mostly accurate comprehension, minor mistakes in grammar and pronunciation.</option>
-        <option value="A(Good comprehension, minor lapses in grammar and fluency).">A - Good comprehension, minor lapses in grammar and fluency.</option>
-        <option value="A+(Excellent comprehension, fluent and grammatically correct speech.)">A+ - Excellent comprehension, fluent and grammatically correct speech.</option>
-      </select>
+  <label>General Assessment</label>
+  <select name="GENERAL_ASSESSMENT" required>
+    <option value="B">B - Some comprehension, limited vocabulary, unclear pronunciation.</option>
+    <option value="B+">B+ - Better comprehension, simple words and grammar, some pronunciation difficulties.</option>
+    <option value="A-">A- - Mostly accurate comprehension, minor mistakes in grammar and pronunciation.</option>
+    <option value="A">A - Good comprehension, minor lapses in grammar and fluency.</option>
+    <option value="A+">A+ - Excellent comprehension, fluent and grammatically correct speech.</option>
+  </select>
 
-      <div class="button-group">
-        <button type="reset">Reset</button>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
+  <label>Feedback</label>
+  <textarea name="FEEDBACK" rows="3" required></textarea>
+
+  <label>Suggestions</label>
+  <textarea name="SUGGESTIONS" rows="3" required></textarea>
+
+  <div class="button-group">
+    <button type="reset">Reset</button>
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
   </div>
   <script src="script.js"></script>
 </body>
