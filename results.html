@@ -22,6 +22,7 @@
             margin: auto;
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
         }
         button {
             margin-top: 20px;
@@ -60,6 +61,7 @@
         new URLSearchParams(window.location.search).forEach((value, name) => {
             const entry = document.createElement('p');
             entry.textContent = `${name}: ${value}`;
+            entry.style.textAlign = "left";
             resultlist.appendChild(entry);
         });
         
