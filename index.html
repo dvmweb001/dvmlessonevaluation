@@ -120,9 +120,19 @@
 
       <!-- Step 2: Book-Specific Options -->
       <div id="51talk-options" class="hidden">
-        <label>Level/Unit/Lesson</label>
+        <label>Level</label>
+        <select id="51talk-level" name="51TALK LEVEL">
+          <!-- Levels will be dynamically generated here -->
+        </select>
+
+        <label>Unit</label>
+        <select id="51talk-unit" name="51TALK UNIT">
+          <!-- Units will be dynamically generated here -->
+        </select>
+
+        <label>Lesson</label>
         <select id="51talk-lesson" name="51TALK LESSON">
-          <!-- Options for 51Talk Classic English Junior will be dynamically generated here -->
+          <!-- Lessons will be dynamically generated here -->
         </select>
       </div>
 
@@ -173,9 +183,19 @@
       </div>
 
       <div id="wonder-options" class="hidden">
-        <label>Level/Unit/Lesson</label>
+        <label>Level</label>
+        <select id="wonder-level" name="WONDER LEVEL">
+          <!-- Levels will be dynamically generated here -->
+        </select>
+
+        <label>Unit</label>
+        <select id="wonder-unit" name="WONDER UNIT">
+          <!-- Units will be dynamically generated here -->
+        </select>
+
+        <label>Lesson</label>
         <select id="wonder-lesson" name="WONDER LESSON">
-          <!-- Options for Wonder Skills Reading will be dynamically generated here -->
+          <!-- Lessons will be dynamically generated here -->
         </select>
       </div>
 
@@ -183,6 +203,8 @@
         <label>Topic</label>
         <input type="text" name="FREETALK TOPIC" placeholder="Enter topic for Free Talk/Talking Class">
       </div>
+
+      <!-- Your existing form fields -->
 
       <label>Pages</label>
       <div class="radio-group">
@@ -254,44 +276,82 @@
   </div>
 
   <script>
-    // Function to generate options for 51Talk Classic English Junior
-    function generate51TalkOptions() {
-      const lessonSelect = document.getElementById("51talk-lesson");
-
+    // Function to generate levels for 51Talk Classic English Junior
+    function generate51TalkLevels() {
+      const levelSelect = document.getElementById("51talk-level");
       const levels = ["S", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Levels from S to 10
-      const unitsPerLevel = 18; // Each level has 18 units
-      const lessonsPerUnit = 8; // Each unit has 8 lessons
 
       levels.forEach((level) => {
-        for (let unit = 1; unit <= unitsPerLevel; unit++) {
-          for (let lesson = 1; lesson <= lessonsPerUnit; lesson++) {
-            const option = document.createElement("option");
-            option.value = `51Talk Classic English Junior/Level ${level}/Unit ${unit}/Lesson ${lesson}`;
-            option.textContent = `51Talk Classic English Junior/Level ${level}/Unit ${unit}/Lesson ${lesson}`;
-            lessonSelect.appendChild(option);
-          }
-        }
+        const option = document.createElement("option");
+        option.value = `Level ${level}`;
+        option.textContent = `Level ${level}`;
+        levelSelect.appendChild(option);
       });
     }
 
-    // Function to generate options for Wonder Skills Reading
-    function generateWonderOptions() {
-      const lessonSelect = document.getElementById("wonder-lesson");
+    // Function to generate units for 51Talk Classic English Junior
+    function generate51TalkUnits() {
+      const unitSelect = document.getElementById("51talk-unit");
+      const unitsPerLevel = 18; // Each level has 18 units
 
+      for (let unit = 1; unit <= unitsPerLevel; unit++) {
+        const option = document.createElement("option");
+        option.value = `Unit ${unit}`;
+        option.textContent = `Unit ${unit}`;
+        unitSelect.appendChild(option);
+      }
+    }
+
+    // Function to generate lessons for 51Talk Classic English Junior
+    function generate51TalkLessons() {
+      const lessonSelect = document.getElementById("51talk-lesson");
+      const lessonsPerUnit = 8; // Each unit has 8 lessons
+
+      for (let lesson = 1; lesson <= lessonsPerUnit; lesson++) {
+        const option = document.createElement("option");
+        option.value = `Lesson ${lesson}`;
+        option.textContent = `Lesson ${lesson}`;
+        lessonSelect.appendChild(option);
+      }
+    }
+
+    // Function to generate levels for Wonder Skills Reading
+    function generateWonderLevels() {
+      const levelSelect = document.getElementById("wonder-level");
       const levels = ["Starter", "Basic", "Intermediate", "Advance", "Master"];
-      const unitsPerLevel = 3; // Each level has 3 units
-      const lessonsPerUnit = 12; // Each unit has 12 lessons
 
       levels.forEach((level) => {
-        for (let unit = 1; unit <= unitsPerLevel; unit++) {
-          for (let lesson = 1; lesson <= lessonsPerUnit; lesson++) {
-            const option = document.createElement("option");
-            option.value = `Wonder Skills Reading/${level} ${unit}/Lesson ${lesson}`;
-            option.textContent = `Wonder Skills Reading/${level} ${unit}/Lesson ${lesson}`;
-            lessonSelect.appendChild(option);
-          }
-        }
+        const option = document.createElement("option");
+        option.value = `${level}`;
+        option.textContent = `${level}`;
+        levelSelect.appendChild(option);
       });
+    }
+
+    // Function to generate units for Wonder Skills Reading
+    function generateWonderUnits() {
+      const unitSelect = document.getElementById("wonder-unit");
+      const unitsPerLevel = 3; // Each level has 3 units
+
+      for (let unit = 1; unit <= unitsPerLevel; unit++) {
+        const option = document.createElement("option");
+        option.value = `Unit ${unit}`;
+        option.textContent = `Unit ${unit}`;
+        unitSelect.appendChild(option);
+      }
+    }
+
+    // Function to generate lessons for Wonder Skills Reading
+    function generateWonderLessons() {
+      const lessonSelect = document.getElementById("wonder-lesson");
+      const lessonsPerUnit = 12; // Each unit has 12 lessons
+
+      for (let lesson = 1; lesson <= lessonsPerUnit; lesson++) {
+        const option = document.createElement("option");
+        option.value = `Lesson ${lesson}`;
+        option.textContent = `Lesson ${lesson}`;
+        lessonSelect.appendChild(option);
+      }
     }
 
     // Function to handle book selection
@@ -336,25 +396,15 @@
       });
     }
 
-    // Function to disable hidden form fields before submission
-    function disableHiddenFields() {
-      const form = document.getElementById("lesson-form");
-      const hiddenFields = form.querySelectorAll(".hidden input, .hidden select, .hidden textarea");
-
-      hiddenFields.forEach((field) => {
-        field.disabled = true; // Disable hidden fields
-      });
-    }
-
     // Initialize the form
     function initializeForm() {
-      generate51TalkOptions();
-      generateWonderOptions();
+      generate51TalkLevels();
+      generate51TalkUnits();
+      generate51TalkLessons();
+      generateWonderLevels();
+      generateWonderUnits();
+      generateWonderLessons();
       handleBookSelection();
-
-      // Disable hidden fields before form submission
-      const form = document.getElementById("lesson-form");
-      form.addEventListener("submit", disableHiddenFields);
     }
 
     // Call the initialize function when the page loads
