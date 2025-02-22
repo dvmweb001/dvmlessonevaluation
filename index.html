@@ -92,7 +92,7 @@
 </head>
 <body>
   <div class="container">
-    <form action="results.html" method="GET">
+    <form id="lesson-form" action="results.html" method="GET">
       <label>Student's Name</label>
       <input type="text" name="STUDENT'S NAME" required>
 
@@ -336,11 +336,25 @@
       });
     }
 
+    // Function to disable hidden form fields before submission
+    function disableHiddenFields() {
+      const form = document.getElementById("lesson-form");
+      const hiddenFields = form.querySelectorAll(".hidden input, .hidden select, .hidden textarea");
+
+      hiddenFields.forEach((field) => {
+        field.disabled = true; // Disable hidden fields
+      });
+    }
+
     // Initialize the form
     function initializeForm() {
       generate51TalkOptions();
       generateWonderOptions();
       handleBookSelection();
+
+      // Disable hidden fields before form submission
+      const form = document.getElementById("lesson-form");
+      form.addEventListener("submit", disableHiddenFields);
     }
 
     // Call the initialize function when the page loads
