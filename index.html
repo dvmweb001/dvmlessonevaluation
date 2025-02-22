@@ -7,14 +7,105 @@
   <title>Lesson Evaluation</title>
   <link rel="stylesheet" href="css/styles.css">
   <style>
-    /* Your existing CSS code remains unchanged */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      min-height: 200vh;
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #FFFFFF;
+    }
+    .container {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input,
+    select,
+    textarea,
+    button {
+      margin-top: 5px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .radio-group {
+      display: flex;
+      gap: 5px;
+    }
+    table {
+      width: 75%;
+      margin-top: 5px;
+      border-collapse: collapse;
+    }
+    table td,
+    table th {
+      border: 1px solid #ccc;
+      padding: 4px;
+      text-align: left;
+    }
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button[type="reset"] {
+      background-color: #f44336;
+      color: white;
+    }
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+    }
+    select {
+      color: #000;
+      background-color: #fff;
+    }
+    option {
+      color: #000;
+      background-color: #fff;
+    }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <form id="lesson-form" action="results.html" method="GET">
-      <!-- Form fields remain unchanged... -->
+      <label>Student's Name</label>
+      <input type="text" name="STUDENT'S NAME" required>
 
+      <label>Date</label>
+      <input type="date" name="LESSON DATE" required>
+
+      <label>Time Started</label>
+      <input type="time" name="TIME STARTED" required>
+
+      <label>Time Ended</label>
+      <input type="time" name="TIME ENDED" required>
+
+      <!-- Step 1: Select Book -->
       <label>Book Material</label>
       <select id="book-select" name="BOOK MATERIAL" required>
         <option value="">-- Select a Book --</option>
@@ -27,22 +118,35 @@
         <option value="Free Talk/Talking Class">Free Talk/Talking Class</option>
       </select>
 
-      <!-- Book-Specific Options (remain unchanged) -->
-
+      <!-- Step 2: Book-Specific Options -->
       <div id="51talk-options" class="hidden">
         <label>Level</label>
         <select id="51talk-level" name="51TALK LEVEL">
-          <!-- Levels will be dynamically generated here -->
+          <option value="">-- Select Level --</option>
+          <option value="S">S</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
         </select>
 
         <label>Unit</label>
         <select id="51talk-unit" name="51TALK UNIT">
-          <!-- Units will be dynamically generated here -->
+          <option value="">-- Select Unit --</option>
+          <!-- Units will be dynamically populated based on the selected level -->
         </select>
 
         <label>Lesson</label>
         <select id="51talk-lesson" name="51TALK LESSON">
-          <!-- Lessons will be dynamically generated here -->
+          <option value="">-- Select Lesson --</option>
+          <!-- Lessons will be dynamically populated based on the selected unit -->
         </select>
       </div>
 
@@ -95,17 +199,24 @@
       <div id="wonder-options" class="hidden">
         <label>Level</label>
         <select id="wonder-level" name="WONDER LEVEL">
-          <!-- Levels will be dynamically generated here -->
+          <option value="">-- Select Level --</option>
+          <option value="Starter">Starter</option>
+          <option value="Basic">Basic</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advance">Advance</option>
+          <option value="Master">Master</option>
         </select>
 
         <label>Unit</label>
         <select id="wonder-unit" name="WONDER UNIT">
-          <!-- Units will be dynamically generated here -->
+          <option value="">-- Select Unit --</option>
+          <!-- Units will be dynamically populated based on the selected level -->
         </select>
 
         <label>Lesson</label>
         <select id="wonder-lesson" name="WONDER LESSON">
-          <!-- Lessons will be dynamically generated here -->
+          <option value="">-- Select Lesson --</option>
+          <!-- Lessons will be dynamically populated based on the selected unit -->
         </select>
       </div>
 
@@ -113,8 +224,6 @@
         <label>Topic</label>
         <input type="text" name="FREETALK TOPIC" placeholder="Enter topic for Free Talk/Talking Class">
       </div>
-
-      <!-- Your existing form fields -->
 
       <label>Pages</label>
       <div class="radio-group">
@@ -186,41 +295,50 @@
   </div>
 
   <script>
-    // Function to generate levels for Wonder Skills Reading
-    function generateWonderLevels() {
-      const levelSelect = document.getElementById("wonder-level");
-      const levels = ["Starter", "Basic", "Intermediate", "Advance", "Master"];
-
-      levels.forEach((level) => {
+    // Function to populate units for 51Talk Classic English Junior
+    function populate51TalkUnits() {
+      const unitSelect = document.getElementById("51talk-unit");
+      unitSelect.innerHTML = '<option value="">-- Select Unit --</option>';
+      for (let i = 1; i <= 18; i++) {
         const option = document.createElement("option");
-        option.value = `${level}`;
-        option.textContent = `${level}`;
-        levelSelect.appendChild(option);
-      });
-    }
-
-    // Function to generate units for Wonder Skills Reading
-    function generateWonderUnits() {
-      const unitSelect = document.getElementById("wonder-unit");
-      const unitsPerLevel = 3; // Each level has 3 units
-
-      for (let unit = 1; unit <= unitsPerLevel; unit++) {
-        const option = document.createElement("option");
-        option.value = `Unit ${unit}`;
-        option.textContent = `Unit ${unit}`;
+        option.value = `Unit ${i}`;
+        option.textContent = `Unit ${i}`;
         unitSelect.appendChild(option);
       }
     }
 
-    // Function to generate lessons for Wonder Skills Reading
-    function generateWonderLessons() {
-      const lessonSelect = document.getElementById("wonder-lesson");
-      const lessonsPerUnit = 12; // Each unit has 12 lessons
-
-      for (let lesson = 1; lesson <= lessonsPerUnit; lesson++) {
+    // Function to populate lessons for 51Talk Classic English Junior
+    function populate51TalkLessons() {
+      const lessonSelect = document.getElementById("51talk-lesson");
+      lessonSelect.innerHTML = '<option value="">-- Select Lesson --</option>';
+      for (let i = 1; i <= 8; i++) {
         const option = document.createElement("option");
-        option.value = `Lesson ${lesson}`;
-        option.textContent = `Lesson ${lesson}`;
+        option.value = `Lesson ${i}`;
+        option.textContent = `Lesson ${i}`;
+        lessonSelect.appendChild(option);
+      }
+    }
+
+    // Function to populate units for Wonder Skills Reading
+    function populateWonderUnits() {
+      const unitSelect = document.getElementById("wonder-unit");
+      unitSelect.innerHTML = '<option value="">-- Select Unit --</option>';
+      for (let i = 1; i <= 3; i++) {
+        const option = document.createElement("option");
+        option.value = `Unit ${i}`;
+        option.textContent = `Unit ${i}`;
+        unitSelect.appendChild(option);
+      }
+    }
+
+    // Function to populate lessons for Wonder Skills Reading
+    function populateWonderLessons() {
+      const lessonSelect = document.getElementById("wonder-lesson");
+      lessonSelect.innerHTML = '<option value="">-- Select Lesson --</option>';
+      for (let i = 1; i <= 12; i++) {
+        const option = document.createElement("option");
+        option.value = `Lesson ${i}`;
+        option.textContent = `Lesson ${i}`;
         lessonSelect.appendChild(option);
       }
     }
@@ -249,10 +367,10 @@
         freetalkOptions.classList.add("hidden");
 
         // Show the selected book's options
-        if (selectedBook === "Wonder Skills Reading") {
-          wonderOptions.classList.remove("hidden");
-        } else if (selectedBook === "51Talk Classic English Junior") {
+        if (selectedBook === "51Talk Classic English Junior") {
           talkOptions.classList.remove("hidden");
+          populate51TalkUnits();
+          populate51TalkLessons();
         } else if (selectedBook === "Let's Go") {
           letsGoOptions.classList.remove("hidden");
         } else if (selectedBook === "National Geographic Reading Explorer 2nd Edition") {
@@ -261,18 +379,33 @@
           natgeo3Options.classList.remove("hidden");
         } else if (selectedBook === "Oxford Discover") {
           oxfordOptions.classList.remove("hidden");
+        } else if (selectedBook === "Wonder Skills Reading") {
+          wonderOptions.classList.remove("hidden");
+          populateWonderUnits();
+          populateWonderLessons();
         } else if (selectedBook === "Free Talk/Talking Class") {
           freetalkOptions.classList.remove("hidden");
         }
       });
     }
 
+    // Function to disable hidden form fields before submission
+    function disableHiddenFields() {
+      const form = document.getElementById("lesson-form");
+      const hiddenFields = form.querySelectorAll(".hidden input, .hidden select, .hidden textarea");
+
+      hiddenFields.forEach((field) => {
+        field.disabled = true; // Disable hidden fields
+      });
+    }
+
     // Initialize the form
     function initializeForm() {
-      generateWonderLevels();
-      generateWonderUnits();
-      generateWonderLessons();
       handleBookSelection();
+
+      // Disable hidden fields before form submission
+      const form = document.getElementById("lesson-form");
+      form.addEventListener("submit", disableHiddenFields);
     }
 
     // Call the initialize function when the page loads
