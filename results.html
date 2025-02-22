@@ -51,7 +51,8 @@
             const resultlist = document.getElementById("results");
 
             // Retrieve and display evaluation results
-            new URLSearchParams(window.location.search).forEach((value, name) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.forEach((value, name) => {
                 const entry = document.createElement("p");
                 entry.textContent = `${name}: ${value}`;
                 entry.style.textAlign = "left";
@@ -65,12 +66,19 @@
 
             // Export button event listener
             document.getElementById("exportBtn").addEventListener("click", () => {
-                const studentName = new URLSearchParams(window.location.search).get('studentName') || 'Unknown';
+                // Retrieve student's name and time started from URL parameters
+                const studentName = urlParams.get("STUDENT'S NAME") || "Unknown";
+                const timeStarted = urlParams.get("TIME STARTED") || "0000";
+
+                // Format the date and time
                 const date = new Date();
                 const formattedDate = `${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}${date.getFullYear()}`;
-                const formattedTime = `${String(date.getHours()).padStart(2, '0')}${String(date.getMinutes()).padStart(2, '0')}`;
-                const fileName = `${studentName}-${formattedDate}-${formattedTime}.png`;
+                const formattedTime = timeStarted.replace(":", ""); // Remove colons from time
 
+                // Create the file name
+                const fileName = `${studentName}_${formattedDate}_${formattedTime}.png`;
+
+                // Export the container as a PNG
                 html2canvas(document.getElementById("results-container")).then(canvas => {
                     const link = document.createElement('a');
                     link.download = fileName;
