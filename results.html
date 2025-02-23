@@ -54,8 +54,25 @@
             const urlParams = new URLSearchParams(window.location.search);
             urlParams.forEach((value, name) => {
                 const entry = document.createElement("p");
-                entry.textContent = `${name}: ${value}`;
                 entry.style.textAlign = "left";
+
+                // Apply specific styles based on the name of the parameter
+                if (name.toLowerCase().includes("incorrect sentence")) {
+                    entry.style.color = "red";
+                    entry.textContent = `${name}: ${value}`;
+                } else if (name.toLowerCase().includes("correct sentence")) {
+                    entry.style.color = "green";
+                    entry.textContent = `${name}: ${value}`;
+                } else if (name.toLowerCase().includes("mispronounced words")) {
+                    entry.innerHTML = `${name}: <strong style="color: red;">${value}</strong>`;
+                } else if (name.toLowerCase().includes("general assessment")) {
+                    entry.style.fontWeight = "bold";
+                    entry.style.color = "black";
+                    entry.textContent = `${name}: ${value}`;
+                } else {
+                    entry.textContent = `${name}: ${value}`;
+                }
+
                 resultlist.appendChild(entry);
             });
 
