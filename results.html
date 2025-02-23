@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lesson Evaluation Results</title>
+    <title>Lesson Evaluation Form</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -23,6 +23,13 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             text-align: left;
         }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
         button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -38,83 +45,54 @@
     </style>
 </head>
 <body>
-    <div class="container" id="results-container">
-        <h2>Lesson Evaluation Results</h2>
-        <div id="results"></div>
-        <button id="backBtn">Back to Lesson Evaluation</button>
-        <button id="exportBtn">Export as PNG</button>
+    <div class="container">
+        <h2>Lesson Evaluation Form</h2>
+        <form id="evaluationForm" action="results.html" method="GET">
+            <label for="studentName">Student's Name:</label>
+            <input type="text" id="studentName" name="STUDENT'S NAME" required>
+
+            <label for="timeStarted">Time Started:</label>
+            <input type="time" id="timeStarted" name="TIME STARTED" required>
+
+            <label for="incorrectSentence">Incorrect Sentence:</label>
+            <textarea id="incorrectSentence" name="incorrect sentence"></textarea>
+
+            <label for="correctSentence">Correct Sentence:</label>
+            <textarea id="correctSentence" name="correct sentence"></textarea>
+
+            <label for="mispronouncedWords">Mispronounced Words:</label>
+            <textarea id="mispronouncedWords" name="mispronounced words"></textarea>
+
+            <label for="feedback">Feedback:</label>
+            <textarea id="feedback" name="feedback"></textarea>
+
+            <label for="suggestions">Suggestions:</label>
+            <textarea id="suggestions" name="suggestions"></textarea>
+
+            <label for="generalAssessment">General Assessment:</label>
+            <textarea id="generalAssessment" name="general assessment"></textarea>
+
+            <label for="noteRemarks">Note/Remarks on the Lesson Material:</label>
+            <textarea id="noteRemarks" name="note/remarks on the lesson material"></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const resultlist = document.getElementById("results");
-
-            // Retrieve and display evaluation results
             const urlParams = new URLSearchParams(window.location.search);
-            urlParams.forEach((value, name) => {
-                const entry = document.createElement("p");
-                entry.style.textAlign = "left";
 
-                // Apply specific styles based on the name of the parameter
-                if (name.toLowerCase().includes("incorrect sentence")) {
-                    entry.style.color = "red";
-                    entry.textContent = `${name}: ${value}`;
-                } else if (name.toLowerCase().includes("correct sentence")) {
-                    entry.style.color = "green";
-                    entry.textContent = `${name}: ${value}`;
-                } else if (name.toLowerCase().includes("mispronounced words")) {
-                    entry.innerHTML = `${name}: <strong style="color: red;">${value}</strong>`;
-                } else if (name.toLowerCase().includes("feedback")) {
-                    entry.style.fontWeight = "bold";
-                    entry.style.color = "black";
-                    entry.textContent = `${name}: ${value}`;
-                } else if (name.toLowerCase().includes("suggestions")) {
-                    entry.style.fontWeight = "bold";
-                    entry.style.color = "green";
-                    entry.textContent = `${name}: ${value}`;
-                } else if (name.toLowerCase().includes("general assessment")) {
-                    entry.style.fontWeight = "bold";
-                    entry.style.color = "black";
-                    entry.textContent = `${name}: ${value}`;
-                } else if (name.toLowerCase().includes("note/remarks on the lesson material")) {
-                    entry.style.fontWeight = "bold";
-                    entry.style.color = "red";
-                    entry.textContent = `${name}: ${value}`;
-                } else {
-                    entry.textContent = `${name}: ${value}`;
-                }
-
-                resultlist.appendChild(entry);
-            });
-
-            // Back button event listener
-            document.getElementById("backBtn").addEventListener("click", () => {
-                window.location.href = "index.html"; // Redirect back to the lesson evaluation page
-            });
-
-            // Export button event listener
-            document.getElementById("exportBtn").addEventListener("click", () => {
-                // Retrieve student's name and time started from URL parameters
-                const studentName = urlParams.get("STUDENT'S NAME") || "Unknown";
-                const timeStarted = urlParams.get("TIME STARTED") || "0000";
-
-                // Format the date and time
-                const date = new Date();
-                const formattedDate = `${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}${date.getFullYear()}`;
-                const formattedTime = timeStarted.replace(":", ""); // Remove colons from time
-
-                // Create the file name
-                const fileName = `${studentName}_${formattedDate}_${formattedTime}.png`;
-
-                // Export the container as a PNG
-                html2canvas(document.getElementById("results-container")).then(canvas => {
-                    const link = document.createElement('a');
-                    link.download = fileName;
-                    link.href = canvas.toDataURL("image/png");
-                    link.click();
-                });
-            });
+            // Pre-fill form fields with URL parameters
+            document.getElementById("studentName").value = urlParams.get("STUDENT'S NAME") || "";
+            document.getElementById("timeStarted").value = urlParams.get("TIME STARTED") || "";
+            document.getElementById("incorrectSentence").value = urlParams.get("incorrect sentence") || "";
+            document.getElementById("correctSentence").value = urlParams.get("correct sentence") || "";
+            document.getElementById("mispronouncedWords").value = urlParams.get("mispronounced words") || "";
+            document.getElementById("feedback").value = urlParams.get("feedback") || "";
+            document.getElementById("suggestions").value = urlParams.get("suggestions") || "";
+            document.getElementById("generalAssessment").value = urlParams.get("general assessment") || "";
+            document.getElementById("noteRemarks").value = urlParams.get("note/remarks on the lesson material") || "";
         });
     </script>
 </body>
