@@ -399,9 +399,38 @@
       });
     }
 
+    // Function to pre-fill form fields with URL parameters
+    function prefillFormFields() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const form = document.getElementById("lesson-form");
+
+      // Loop through all form elements and pre-fill them
+      Array.from(form.elements).forEach((element) => {
+        if (element.name && urlParams.has(element.name)) {
+          if (element.tagName === "SELECT") {
+            // Handle select elements
+            const option = element.querySelector(`option[value="${urlParams.get(element.name)}"]`);
+            if (option) {
+              option.selected = true;
+            }
+          } else {
+            // Handle input and textarea elements
+            element.value = urlParams.get(element.name);
+          }
+        }
+      });
+
+      // Trigger book selection to show/hide options
+      const bookSelect = document.getElementById("book-select");
+      if (bookSelect.value) {
+        bookSelect.dispatchEvent(new Event("change"));
+      }
+    }
+
     // Initialize the form
     function initializeForm() {
       handleBookSelection();
+      prefillFormFields();
 
       // Disable hidden fields before form submission
       const form = document.getElementById("lesson-form");
