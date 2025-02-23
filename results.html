@@ -65,9 +65,21 @@
                     entry.textContent = `${name}: ${value}`;
                 } else if (name.toLowerCase().includes("mispronounced words")) {
                     entry.innerHTML = `${name}: <strong style="color: red;">${value}</strong>`;
+                } else if (name.toLowerCase().includes("feedback")) {
+                    entry.style.fontWeight = "bold";
+                    entry.style.color = "black";
+                    entry.textContent = `${name}: ${value}`;
+                } else if (name.toLowerCase().includes("suggestions")) {
+                    entry.style.fontWeight = "bold";
+                    entry.style.color = "green";
+                    entry.textContent = `${name}: ${value}`;
                 } else if (name.toLowerCase().includes("general assessment")) {
                     entry.style.fontWeight = "bold";
                     entry.style.color = "black";
+                    entry.textContent = `${name}: ${value}`;
+                } else if (name.toLowerCase().includes("note/remarks on the lesson material")) {
+                    entry.style.fontWeight = "bold";
+                    entry.style.color = "red";
                     entry.textContent = `${name}: ${value}`;
                 } else {
                     entry.textContent = `${name}: ${value}`;
