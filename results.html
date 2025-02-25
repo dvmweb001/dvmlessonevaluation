@@ -6,41 +6,41 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Lesson Evaluation Results</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <style>
-    /* Add necessary styles */
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      min-height: 100vh;
       margin: 0;
       padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #FFFFFF;
     }
     .container {
       width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 600px;
       padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      text-align: center;
-      color: #333;
+      background-color: #f9f9f9;
+      border-radius: 8px;
     }
     table {
       width: 100%;
-      margin-top: 20px;
       border-collapse: collapse;
+      margin-top: 10px;
     }
-    table th,
-    table td {
-      border: 1px solid #ddd;
-      padding: 10px;
+    table, th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
       text-align: left;
     }
     .button-group {
+      display: flex;
+      justify-content: space-between;
       margin-top: 20px;
-      text-align: center;
     }
     button {
       padding: 10px 20px;
@@ -48,94 +48,50 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    button[type="button"] {
-      background-color: #f44336;
+    .edit-button {
+      background-color: #007bff;
       color: white;
     }
-    button[type="button"]:hover {
-      background-color: #d32f2f;
+    .export-button {
+      background-color: #4CAF50;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Lesson Evaluation Results</h1>
-    <table>
-      <tr>
-        <th>Student's Name</th>
-        <td id="student-name"></td>
-      </tr>
-      <tr>
-        <th>Lesson Date</th>
-        <td id="lesson-date"></td>
-      </tr>
-      <tr>
-        <th>Time Started</th>
-        <td id="time-started"></td>
-      </tr>
-      <tr>
-        <th>Time Ended</th>
-        <td id="time-ended"></td>
-      </tr>
-      <tr>
-        <th>Mispronounced Words</th>
-        <td id="mispronounced-words"></td>
-      </tr>
-      <tr>
-        <th>Incorrect and Correct Sentences</th>
-        <td id="incorrect-correct-sentences"></td>
-      </tr>
-      <tr>
-        <th>General Assessment</th>
-        <td id="general-assessment"></td>
-      </tr>
-      <tr>
-        <th>Feedback</th>
-        <td id="feedback"></td>
-      </tr>
-      <tr>
-        <th>Suggestions</th>
-        <td id="suggestions"></td>
-      </tr>
-    </table>
+  <div class="container" id="result-container">
+    <h2>Lesson Evaluation Results</h2>
+    <table id="result-table"></table>
     <div class="button-group">
-      <button type="button" onclick="window.history.back();">Go Back</button>
+      <button class="edit-button" onclick="editResults()">Edit</button>
+      <button class="export-button" onclick="exportAsPNG()">Export as PNG</button>
     </div>
   </div>
 
   <script>
-    // Get data from URL query parameters and populate the results page
-    const urlParams = new URLSearchParams(window.location.search);
-
-    document.getElementById("student-name").textContent = urlParams.get("STUDENT'S NAME");
-    document.getElementById("lesson-date").textContent = urlParams.get("LESSON DATE");
-    document.getElementById("time-started").textContent = urlParams.get("TIME STARTED");
-    document.getElementById("time-ended").textContent = urlParams.get("TIME ENDED");
-    document.getElementById("general-assessment").textContent = urlParams.get("GENERAL ASSESSMENT");
-    document.getElementById("feedback").textContent = urlParams.get("FEEDBACK");
-    document.getElementById("suggestions").textContent = urlParams.get("SUGGESTIONS");
-
-    // Handle mispronounced words
-    const mispronouncedWords = [];
-    let i = 1;
-    while (urlParams.has(`MISPRONOUNCED WORD ${i}`)) {
-      const word = urlParams.get(`MISPRONOUNCED WORD ${i}`);
-      const translatedWord = urlParams.get(`TRANSLATED WORD ${i}`);
-      mispronouncedWords.push(`${word} - ${translatedWord}`);
-      i++;
+    function getQueryParams() {
+      const params = new URLSearchParams(window.location.search);
+      let resultHTML = "<tr><th>Field</th><th>Value</th></tr>";
+      params.forEach((value, key) => {
+        resultHTML += `<tr><td>${key.replace(/_/g, ' ')}</td><td>${value}</td></tr>`;
+      });
+      document.getElementById("result-table").innerHTML = resultHTML;
     }
-    document.getElementById("mispronounced-words").textContent = mispronouncedWords.join(", ");
-
-    // Handle incorrect and correct sentences
-    const incorrectCorrectSentences = [];
-    let j = 1;
-    while (urlParams.has(`INCORRECT SENTENCE ${j}`)) {
-      const incorrectSentence = urlParams.get(`INCORRECT SENTENCE ${j}`);
-      const correctSentence = urlParams.get(`CORRECT SENTENCE ${j}`);
-      incorrectCorrectSentences.push(`${incorrectSentence} -> ${correctSentence}`);
-      j++;
+    
+    function editResults() {
+      window.history.back();
     }
-    document.getElementById("incorrect-correct-sentences").textContent = incorrectCorrectSentences.join(", ");
+    
+    function exportAsPNG() {
+      html2canvas(document.getElementById("result-container")).then(canvas => {
+        let link = document.createElement("a");
+        link.download = "lesson_evaluation.png";
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+    
+    window.onload = getQueryParams;
   </script>
 </body>
 </html>
