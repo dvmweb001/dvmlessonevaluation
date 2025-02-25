@@ -17,14 +17,14 @@
       margin: 0;
       padding: 20px;
       font-family: Arial, sans-serif;
-      background-color: #FFFFFF;
+      background-color: #FFFFFF; /* White background */
     }
     .container {
       width: 100%;
       max-width: 600px;
       padding: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      background-color: #f9f9f9;
+      background-color: #FFFFFF; /* White background */
       border-radius: 8px;
     }
     table {
@@ -56,26 +56,6 @@
       background-color: #4CAF50;
       color: white;
     }
-    .incorrect {
-      color: red;
-      font-weight: bold;
-    }
-    .correct {
-      color: green;
-      font-weight: bold;
-    }
-    .general-assessment {
-      color: black;
-      font-weight: bold;
-    }
-    .feedback {
-      color: green;
-      font-weight: bold;
-    }
-    .suggestion {
-      color: green;
-      font-weight: bold;
-    }
     .export-info {
       margin-bottom: 20px;
       font-weight: bold;
@@ -88,7 +68,17 @@
     <div class="export-info" id="export-info">
       <!-- Student name, date, and time will be dynamically inserted here -->
     </div>
-    <table id="result-table"></table>
+    <table id="result-table">
+      <thead>
+        <tr>
+          <th>Mispronounced Word</th>
+          <th>Translated Word</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be dynamically inserted here -->
+      </tbody>
+    </table>
     <div class="button-group">
       <button class="edit-button" onclick="editResults()">Edit</button>
       <button class="export-button" onclick="exportAsPNG()">Export as PNG</button>
@@ -98,38 +88,32 @@
   <script>
     function getQueryParams() {
       const params = new URLSearchParams(window.location.search);
-      let resultHTML = "";
-      params.forEach((value, key) => {
-        let formattedKey = key.replace(/_/g, ' ');
-        let rowClass = "";
-
-        if (formattedKey.toLowerCase().includes("incorrect")) {
-          rowClass = "incorrect";
-        } else if (formattedKey.toLowerCase().includes("correct")) {
-          rowClass = "correct";
-        } else if (formattedKey.toLowerCase().includes("general assessment")) {
-          rowClass = "general-assessment";
-        } else if (formattedKey.toLowerCase().includes("feedback")) {
-          rowClass = "feedback";
-        } else if (formattedKey.toLowerCase().includes("suggestion")) {
-          rowClass = "suggestion";
-        }
-
-        resultHTML += `<tr><td class="${rowClass}">${formattedKey}</td><td class="${rowClass}">${value}</td></tr>`;
-      });
-      document.getElementById("result-table").innerHTML = resultHTML;
-
-      // Add student name, date, and time to the export info section
       const studentName = params.get("name") || "student";
       const now = new Date();
       const date = now.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' });
       const time = now.toLocaleTimeString("en-US", { hour12: false });
 
+      // Display student name, date, and time
       document.getElementById("export-info").innerHTML = `
         <p>Student: ${studentName}</p>
         <p>Date: ${date}</p>
         <p>Time: ${time}</p>
       `;
+
+      // Add mispronounced and translated words to the table
+      const mispronouncedWords = params.get("mispronounced") ? params.get("mispronounced").split(",") : [];
+      const translatedWords = params.get("translated") ? params.get("translated").split(",") : [];
+
+      let tableBody = "";
+      for (let i = 0; i < mispronouncedWords.length; i++) {
+        tableBody += `
+          <tr>
+            <td>${mispronouncedWords[i]}</td>
+            <td>${translatedWords[i] || ""}</td>
+          </tr>
+        `;
+      }
+      document.querySelector("#result-table tbody").innerHTML = tableBody;
     }
     
     function editResults() {
@@ -138,19 +122,19 @@
     
     function exportAsPNG() {
       const params = new URLSearchParams(window.location.search);
-      let studentName = params.get("name") || "student";
-      studentName = studentName.replace(/\s+/g, "_"); // Replace spaces with underscores
-
+      const studentName = params.get("name") || "student";
       const now = new Date();
       const date = now.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, "");
       const time = now.toLocaleTimeString("en-US", { hour12: false }).replace(/:/g, "").slice(0, 4);
 
-      // Correct filename format: student's name_date_time started.png
+      // Filename format: student's name_date_time started.png
       const fileName = `${studentName}_${date}_${time}_started.png`;
 
       // Ensure the content is fully rendered before capturing
       setTimeout(() => {
-        html2canvas(document.getElementById("result-container")).then(canvas => {
+        html2canvas(document.getElementById("result-container"), {
+          backgroundColor: "#FFFFFF", // Ensure white background
+        }).then(canvas => {
           let link = document.createElement("a");
           link.download = fileName;
           link.href = canvas.toDataURL();
