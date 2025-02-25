@@ -49,14 +49,14 @@
       gap: 5px;
     }
     table {
-      width: 75%;
+      width: 100%;
       margin-top: 5px;
       border-collapse: collapse;
     }
     table td,
     table th {
       border: 1px solid #ccc;
-      padding: 4px;
+      padding: 8px;
       text-align: left;
     }
     .button-group {
@@ -132,16 +132,21 @@
 
       <!-- Mispronounced Words Section -->
       <label>Part I: Pronunciation (Mispronounced Words)</label>
-      <div id="mispronounced-words-container">
-        <div class="radio-group">
-          <input type="text" name="MISPRONOUNCED WORD 1" placeholder="Word 1" required>
-          <button type="button" class="translate-button">Translate</button>
-        </div>
-        <div class="radio-group">
-          <input type="text" name="MISPRONOUNCED WORD 2" placeholder="Word 2" required>
-          <button type="button" class="translate-button">Translate</button>
-        </div>
-      </div>
+      <table id="mispronounced-words-table">
+        <thead>
+          <tr>
+            <th>Mispronounced Word</th>
+            <th>Translated Word (Chinese)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" name="MISPRONOUNCED WORD 1" placeholder="Word 1" required></td>
+            <td><input type="text" name="TRANSLATED WORD 1" placeholder="Translated Word 1" readonly></td>
+            <td><button type="button" class="translate-button">Translate</button></td>
+          </tr>
+        </tbody>
+      </table>
       <button type="button" id="add-more-words" class="add-button">Add More Words</button>
 
       <!-- Incorrect and Correct Sentences Section -->
@@ -184,32 +189,53 @@
   <script>
     // Add More Words Functionality
     document.getElementById("add-more-words").addEventListener("click", () => {
-      const container = document.getElementById("mispronounced-words-container");
-      const newGroup = document.createElement("div");
-      newGroup.className = "radio-group";
+      const table = document.getElementById("mispronounced-words-table").getElementsByTagName("tbody")[0];
+      const rowCount = table.querySelectorAll("tr").length + 1;
 
-      const wordCount = container.querySelectorAll('input[type="text"]').length + 1;
-      const input = document.createElement("input");
-      input.type = "text";
-      input.name = `MISPRONOUNCED WORD ${wordCount}`;
-      input.placeholder = `Word ${wordCount}`;
-      newGroup.appendChild(input);
+      const newRow = document.createElement("tr");
 
+      // Mispronounced Word Column
+      const wordCell = document.createElement("td");
+      const wordInput = document.createElement("input");
+      wordInput.type = "text";
+      wordInput.name = `MISPRONOUNCED WORD ${rowCount}`;
+      wordInput.placeholder = `Word ${rowCount}`;
+      wordCell.appendChild(wordInput);
+
+      // Translated Word Column
+      const translatedCell = document.createElement("td");
+      const translatedInput = document.createElement("input");
+      translatedInput.type = "text";
+      translatedInput.name = `TRANSLATED WORD ${rowCount}`;
+      translatedInput.placeholder = "Translated Word";
+      translatedInput.readOnly = true;
+      translatedCell.appendChild(translatedInput);
+
+      // Translate Button Column
+      const buttonCell = document.createElement("td");
       const translateButton = document.createElement("button");
       translateButton.type = "button";
       translateButton.className = "translate-button";
       translateButton.textContent = "Translate";
       translateButton.addEventListener("click", () => {
-        const word = input.value;
+        const word = wordInput.value;
         if (word) {
+          // Simulate translation (replace with actual translation API call if needed)
+          translatedInput.value = `Translated: ${word}`; // Placeholder for actual translation
           window.open(`https://translate.google.com/?sl=en&tl=zh-CN&text=${encodeURIComponent(word)}&op=translate`, "_blank");
         } else {
           alert("Please enter a word to translate.");
         }
       });
-      newGroup.appendChild(translateButton);
+      buttonCell.appendChild(translateButton);
 
-      container.appendChild(newGroup);
+      // Append all cells to the new row
+      newRow.appendChild(wordCell);
+      newRow.appendChild(translatedCell);
+      newRow.appendChild(buttonCell);
+
+      // Append the new row to the table
+      table.appendChild(newRow);
     });
 
     // Add More Sentences Functionality
