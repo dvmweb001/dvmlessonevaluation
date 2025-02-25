@@ -17,21 +17,20 @@
       margin: 0;
       padding: 20px;
       font-family: Arial, sans-serif;
-      background-color: #FFFFFF; /* White background */
+      background-color: #FFFFFF;
     }
     .container {
       width: 100%;
-      max-width: 600px;
+      max-width: 800px; /* Increased width for 4 columns */
       padding: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      background-color: #FFFFFF; /* White background */
+      background-color: #f9f9f9;
       border-radius: 8px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
-      background-color: #FFFFFF; /* White background */
     }
     table, th, td {
       border: 1px solid #ccc;
@@ -92,8 +91,11 @@
     <table id="result-table">
       <thead>
         <tr>
-          <th>Mispronounced Word</th>
+          <th>Field</th>
+          <th>Value</th>
+          <th>Mispronounced Words</th>
           <th>Translated Word</th>
+          <th>Chinese Word</th>
         </tr>
       </thead>
       <tbody>
@@ -121,21 +123,41 @@
         <p>Time: ${time}</p>
       `;
 
-      // Example data for mispronounced and translated words
-      const mispronouncedWords = ["apple", "banana", "cherry"];
-      const translatedWords = ["manzana", "plátano", "cereza"];
+      // Generate table rows
+      let resultHTML = "";
+      params.forEach((value, key) => {
+        let formattedKey = key.replace(/_/g, ' ');
+        let rowClass = "";
 
-      const tableBody = document.querySelector("#result-table tbody");
-      tableBody.innerHTML = ""; // Clear existing rows
+        if (formattedKey.toLowerCase().includes("incorrect")) {
+          rowClass = "incorrect";
+        } else if (formattedKey.toLowerCase().includes("correct")) {
+          rowClass = "correct";
+        } else if (formattedKey.toLowerCase().includes("general assessment")) {
+          rowClass = "general-assessment";
+        } else if (formattedKey.toLowerCase().includes("feedback")) {
+          rowClass = "feedback";
+        } else if (formattedKey.toLowerCase().includes("suggestion")) {
+          rowClass = "suggestion";
+        }
 
-      // Add rows for mispronounced and translated words
-      mispronouncedWords.forEach((word, index) => {
-        const row = `<tr>
-          <td>${word}</td>
-          <td>${translatedWords[index]}</td>
-        </tr>`;
-        tableBody.innerHTML += row;
+        // Split mispronounced words, translated words, and Chinese words
+        const mispronouncedWords = params.get("mispronounced_words") || "";
+        const translatedWords = params.get("translated_words") || "";
+        const chineseWords = params.get("chinese_words") || "";
+
+        resultHTML += `
+          <tr>
+            <td class="${rowClass}">${formattedKey}</td>
+            <td class="${rowClass}">${value}</td>
+            <td>${mispronouncedWords}</td>
+            <td>${translatedWords}</td>
+            <td>${chineseWords}</td>
+          </tr>
+        `;
       });
+
+      document.querySelector("#result-table tbody").innerHTML = resultHTML;
     }
     
     function editResults() {
@@ -144,21 +166,16 @@
     
     function exportAsPNG() {
       const params = new URLSearchParams(window.location.search);
-      let studentName = params.get("name") || "student";
-      studentName = studentName.replace(/\s+/g, "_"); // Replace spaces with underscores
-
+      const studentName = params.get("name") || "student";
       const now = new Date();
       const date = now.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, "");
       const time = now.toLocaleTimeString("en-US", { hour12: false }).replace(/:/g, "").slice(0, 4);
 
-      // Correct filename format: student's name_date_time started.png
-      const fileName = `${studentName}_${date}_${time}_started.png`;
+      const fileName = `${studentName}_${date}_${time}.png`;
 
       // Ensure the content is fully rendered before capturing
       setTimeout(() => {
-        html2canvas(document.getElementById("result-container"), {
-          backgroundColor: "#FFFFFF", // Ensure white background in the exported PNG
-        }).then(canvas => {
+        html2canvas(document.getElementById("result-container")).then(canvas => {
           let link = document.createElement("a");
           link.download = fileName;
           link.href = canvas.toDataURL();
