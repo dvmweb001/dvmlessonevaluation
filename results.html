@@ -31,6 +31,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
+      background-color: #FFFFFF; /* White background */
     }
     table, th, td {
       border: 1px solid #ccc;
@@ -55,6 +56,26 @@
     .export-button {
       background-color: #4CAF50;
       color: white;
+    }
+    .incorrect {
+      color: red;
+      font-weight: bold;
+    }
+    .correct {
+      color: green;
+      font-weight: bold;
+    }
+    .general-assessment {
+      color: black;
+      font-weight: bold;
+    }
+    .feedback {
+      color: green;
+      font-weight: bold;
+    }
+    .suggestion {
+      color: green;
+      font-weight: bold;
     }
     .export-info {
       margin-bottom: 20px;
@@ -100,20 +121,21 @@
         <p>Time: ${time}</p>
       `;
 
-      // Add mispronounced and translated words to the table
-      const mispronouncedWords = params.get("mispronounced") ? params.get("mispronounced").split(",") : [];
-      const translatedWords = params.get("translated") ? params.get("translated").split(",") : [];
+      // Example data for mispronounced and translated words
+      const mispronouncedWords = ["apple", "banana", "cherry"];
+      const translatedWords = ["manzana", "plátano", "cereza"];
 
-      let tableBody = "";
-      for (let i = 0; i < mispronouncedWords.length; i++) {
-        tableBody += `
-          <tr>
-            <td>${mispronouncedWords[i]}</td>
-            <td>${translatedWords[i] || ""}</td>
-          </tr>
-        `;
-      }
-      document.querySelector("#result-table tbody").innerHTML = tableBody;
+      const tableBody = document.querySelector("#result-table tbody");
+      tableBody.innerHTML = ""; // Clear existing rows
+
+      // Add rows for mispronounced and translated words
+      mispronouncedWords.forEach((word, index) => {
+        const row = `<tr>
+          <td>${word}</td>
+          <td>${translatedWords[index]}</td>
+        </tr>`;
+        tableBody.innerHTML += row;
+      });
     }
     
     function editResults() {
@@ -122,18 +144,20 @@
     
     function exportAsPNG() {
       const params = new URLSearchParams(window.location.search);
-      const studentName = params.get("name") || "student";
+      let studentName = params.get("name") || "student";
+      studentName = studentName.replace(/\s+/g, "_"); // Replace spaces with underscores
+
       const now = new Date();
       const date = now.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, "");
       const time = now.toLocaleTimeString("en-US", { hour12: false }).replace(/:/g, "").slice(0, 4);
 
-      // Filename format: student's name_date_time started.png
+      // Correct filename format: student's name_date_time started.png
       const fileName = `${studentName}_${date}_${time}_started.png`;
 
       // Ensure the content is fully rendered before capturing
       setTimeout(() => {
         html2canvas(document.getElementById("result-container"), {
-          backgroundColor: "#FFFFFF", // Ensure white background
+          backgroundColor: "#FFFFFF", // Ensure white background in the exported PNG
         }).then(canvas => {
           let link = document.createElement("a");
           link.download = fileName;
