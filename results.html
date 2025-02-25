@@ -56,6 +56,26 @@
       background-color: #4CAF50;
       color: white;
     }
+    .incorrect {
+      color: red;
+      font-weight: bold;
+    }
+    .correct {
+      color: green;
+      font-weight: bold;
+    }
+    .general-assessment {
+      color: black;
+      font-weight: bold;
+    }
+    .feedback {
+      color: green;
+      font-weight: bold;
+    }
+    .suggestion {
+      color: green;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -71,10 +91,24 @@
   <script>
     function getQueryParams() {
       const params = new URLSearchParams(window.location.search);
-      let resultHTML = "<tr><th>Field</th><th>Value</th></tr>";
+      let resultHTML = "";
       params.forEach((value, key) => {
         let formattedKey = key.replace(/_/g, ' ');
-        resultHTML += `<tr><td>${formattedKey}</td><td>${value}</td></tr>`;
+        let rowClass = "";
+
+        if (formattedKey.toLowerCase().includes("incorrect")) {
+          rowClass = "incorrect";
+        } else if (formattedKey.toLowerCase().includes("correct")) {
+          rowClass = "correct";
+        } else if (formattedKey.toLowerCase().includes("general assessment")) {
+          rowClass = "general-assessment";
+        } else if (formattedKey.toLowerCase().includes("feedback")) {
+          rowClass = "feedback";
+        } else if (formattedKey.toLowerCase().includes("suggestion")) {
+          rowClass = "suggestion";
+        }
+
+        resultHTML += `<tr><td class="${rowClass}">${formattedKey}</td><td class="${rowClass}">${value}</td></tr>`;
       });
       document.getElementById("result-table").innerHTML = resultHTML;
     }
