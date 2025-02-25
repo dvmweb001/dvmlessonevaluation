@@ -9,14 +9,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f4f4f4; /* Gray background for the page */
             margin: 0;
             padding: 20px;
             text-align: center;
         }
         .container {
             max-width: 600px;
-            background: white;
+            background: white; /* White background for the container */
             padding: 20px;
             margin: auto;
             border-radius: 8px;
@@ -115,7 +115,9 @@
                 const fileName = `${studentName}_${formattedDate}_${formattedTime}.png`;
 
                 // Export the container as a PNG
-                html2canvas(document.getElementById("results-container")).then(canvas => {
+                html2canvas(document.getElementById("results-container"), {
+                    backgroundColor: '#FFFFFF' // Force white background
+                }).then(canvas => {
                     const link = document.createElement('a');
                     link.download = fileName;
                     link.href = canvas.toDataURL("image/png");
