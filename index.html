@@ -64,6 +64,24 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+    button[type="reset"] {
+      background-color: #f44336;
+      color: white;
+    }
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .add-button {
+      background-color: #2196F3;
+      color: white;
+      margin-top: 10px;
+    }
+    .add-button:hover {
+      background-color: #1976D2;
     }
     .hidden {
       display: none;
@@ -85,8 +103,9 @@
       <label>Time Ended</label>
       <input type="time" name="TIME ENDED" required>
 
+      <!-- Book/Lesson Material Section -->
       <label>Book Material</label>
-      <select name="BOOK MATERIAL" required>
+      <select id="book-select" name="BOOK MATERIAL" required>
         <option value="">-- Select a Book --</option>
         <option value="51Talk Classic English Junior">51Talk Classic English Junior</option>
         <option value="Let's Go">Let's Go</option>
@@ -96,6 +115,113 @@
         <option value="Wonder Skills Reading">Wonder Skills Reading</option>
         <option value="Free Talk/Talking Class">Free Talk/Talking Class</option>
       </select>
+
+      <!-- Book-Specific Options -->
+      <div id="51talk-options" class="hidden">
+        <label>Level</label>
+        <select id="51talk-level" name="51TALK LEVEL">
+          <option value="">-- Select Level --</option>
+          <option value="S">S</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+
+        <label>Unit</label>
+        <select id="51talk-unit" name="51TALK UNIT">
+          <option value="">-- Select Unit --</option>
+          <!-- Units will be dynamically populated based on the selected level -->
+        </select>
+
+        <label>Lesson</label>
+        <select id="51talk-lesson" name="51TALK LESSON">
+          <option value="">-- Select Lesson --</option>
+          <!-- Lessons will be dynamically populated based on the selected unit -->
+        </select>
+      </div>
+
+      <div id="letsgo-options" class="hidden">
+        <label>Volume</label>
+        <select id="letsgo-volume" name="LET'S GO VOLUME">
+          <option value="Let's Go/Book 1">Let's Go/Book 1</option>
+          <option value="Let's Go/Book 2">Let's Go/Book 2</option>
+          <option value="Let's Go/Book 3">Let's Go/Book 3</option>
+          <option value="Let's Go/Book 4">Let's Go/Book 4</option>
+          <option value="Let's Go/Book 5">Let's Go/Book 5</option>
+          <option value="Let's Go/Book 6">Let's Go/Book 6</option>
+        </select>
+      </div>
+
+      <div id="natgeo2-options" class="hidden">
+        <label>Book</label>
+        <select id="natgeo2-book" name="NATGEO 2 BOOK">
+          <option value="Foundation Book">Foundation Book</option>
+          <option value="Book 2">Book 2</option>
+          <option value="Book 3">Book 3</option>
+        </select>
+      </div>
+
+      <div id="natgeo3-options" class="hidden">
+        <label>Book</label>
+        <select id="natgeo3-book" name="NATGEO 3 BOOK">
+          <option value="Foundation Book">Foundation Book</option>
+          <option value="Book 2">Book 2</option>
+          <option value="Book 3">Book 3</option>
+          <option value="Book 4">Book 4</option>
+          <option value="Book 5">Book 5</option>
+          <option value="Book 6">Book 6</option>
+        </select>
+      </div>
+
+      <div id="oxford-options" class="hidden">
+        <label>Book</label>
+        <select id="oxford-book" name="OXFORD BOOK">
+          <option value="Student Book 1">Student Book 1</option>
+          <option value="Student Book 2">Student Book 2</option>
+          <option value="Student Book 3">Student Book 3</option>
+          <option value="Student Book 4">Student Book 4</option>
+          <option value="Student Book 5">Student Book 5</option>
+          <option value="Student Book 6">Student Book 6</option>
+          <option value="Oxford Phonics World 1">Oxford Phonics World 1</option>
+        </select>
+      </div>
+
+      <div id="wonder-options" class="hidden">
+        <label>Level</label>
+        <select id="wonder-level" name="WONDER LEVEL">
+          <option value="">-- Select Level --</option>
+          <option value="Starter">Starter</option>
+          <option value="Basic">Basic</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advance">Advance</option>
+          <option value="Master">Master</option>
+        </select>
+
+        <label>Unit</label>
+        <select id="wonder-unit" name="WONDER UNIT">
+          <option value="">-- Select Unit --</option>
+          <!-- Units will be dynamically populated based on the selected level -->
+        </select>
+
+        <label>Lesson</label>
+        <select id="wonder-lesson" name="WONDER LESSON">
+          <option value="">-- Select Lesson --</option>
+          <!-- Lessons will be dynamically populated based on the selected unit -->
+        </select>
+      </div>
+
+      <div id="freetalk-options" class="hidden">
+        <label>Topic</label>
+        <input type="text" name="FREETALK TOPIC" placeholder="Enter topic for Free Talk/Talking Class">
+      </div>
 
       <label>Part I: Pronunciation (Mispronounced Words)</label>
       <table id="mispronounced-words-table">
@@ -162,6 +288,149 @@
   </div>
 
   <script>
+    // Function to populate units for 51Talk Classic English Junior
+    function populate51TalkUnits() {
+      const unitSelect = document.getElementById("51talk-unit");
+      unitSelect.innerHTML = '<option value="">-- Select Unit --</option>';
+      for (let i = 1; i <= 18; i++) {
+        const option = document.createElement("option");
+        option.value = `Unit ${i}`;
+        option.textContent = `Unit ${i}`;
+        unitSelect.appendChild(option);
+      }
+    }
+
+    // Function to populate lessons for 51Talk Classic English Junior
+    function populate51TalkLessons() {
+      const lessonSelect = document.getElementById("51talk-lesson");
+      lessonSelect.innerHTML = '<option value="">-- Select Lesson --</option>';
+      for (let i = 1; i <= 8; i++) {
+        const option = document.createElement("option");
+        option.value = `Lesson ${i}`;
+        option.textContent = `Lesson ${i}`;
+        lessonSelect.appendChild(option);
+      }
+    }
+
+    // Function to populate units for Wonder Skills Reading
+    function populateWonderUnits() {
+      const unitSelect = document.getElementById("wonder-unit");
+      unitSelect.innerHTML = '<option value="">-- Select Unit --</option>';
+      for (let i = 1; i <= 3; i++) {
+        const option = document.createElement("option");
+        option.value = `Unit ${i}`;
+        option.textContent = `Unit ${i}`;
+        unitSelect.appendChild(option);
+      }
+    }
+
+    // Function to populate lessons for Wonder Skills Reading
+    function populateWonderLessons() {
+      const lessonSelect = document.getElementById("wonder-lesson");
+      lessonSelect.innerHTML = '<option value="">-- Select Lesson --</option>';
+      for (let i = 1; i <= 12; i++) {
+        const option = document.createElement("option");
+        option.value = `Lesson ${i}`;
+        option.textContent = `Lesson ${i}`;
+        lessonSelect.appendChild(option);
+      }
+    }
+
+    // Function to handle book selection
+    function handleBookSelection() {
+      const bookSelect = document.getElementById("book-select");
+      const talkOptions = document.getElementById("51talk-options");
+      const letsGoOptions = document.getElementById("letsgo-options");
+      const natgeo2Options = document.getElementById("natgeo2-options");
+      const natgeo3Options = document.getElementById("natgeo3-options");
+      const oxfordOptions = document.getElementById("oxford-options");
+      const wonderOptions = document.getElementById("wonder-options");
+      const freetalkOptions = document.getElementById("freetalk-options");
+
+      bookSelect.addEventListener("change", () => {
+        const selectedBook = bookSelect.value;
+
+        // Hide all options first
+        talkOptions.classList.add("hidden");
+        letsGoOptions.classList.add("hidden");
+        natgeo2Options.classList.add("hidden");
+        natgeo3Options.classList.add("hidden");
+        oxfordOptions.classList.add("hidden");
+        wonderOptions.classList.add("hidden");
+        freetalkOptions.classList.add("hidden");
+
+        // Show the selected book's options
+        if (selectedBook === "51Talk Classic English Junior") {
+          talkOptions.classList.remove("hidden");
+          populate51TalkUnits();
+          populate51TalkLessons();
+        } else if (selectedBook === "Let's Go") {
+          letsGoOptions.classList.remove("hidden");
+        } else if (selectedBook === "National Geographic Reading Explorer 2nd Edition") {
+          natgeo2Options.classList.remove("hidden");
+        } else if (selectedBook === "National Geographic Reading Explorer 3rd Edition") {
+          natgeo3Options.classList.remove("hidden");
+        } else if (selectedBook === "Oxford Discover") {
+          oxfordOptions.classList.remove("hidden");
+        } else if (selectedBook === "Wonder Skills Reading") {
+          wonderOptions.classList.remove("hidden");
+          populateWonderUnits();
+          populateWonderLessons();
+        } else if (selectedBook === "Free Talk/Talking Class") {
+          freetalkOptions.classList.remove("hidden");
+        }
+      });
+    }
+
+    // Function to disable hidden form fields before submission
+    function disableHiddenFields() {
+      const form = document.getElementById("lesson-form");
+      const hiddenFields = form.querySelectorAll(".hidden input, .hidden select, .hidden textarea");
+
+      hiddenFields.forEach((field) => {
+        field.disabled = true; // Disable hidden fields
+      });
+    }
+
+    // Function to add more rows to the mispronounced words table
+    function addMoreWords() {
+      const table = document.querySelector("#mispronounced-words-table tbody");
+      const newRow = document.createElement("tr");
+      newRow.innerHTML = `
+        <td><input type="text" name="MISPRONOUNCED WORD" oninput="translateWord(this)"></td>
+        <td><input type="text" name="TRANSLATED WORD" readonly></td>
+      `;
+      table.appendChild(newRow);
+    }
+
+    // Function to add more rows to the syntax table
+    function addMoreSentences() {
+      const table = document.querySelector("#syntax-table tbody");
+      const newRow = document.createElement("tr");
+      newRow.innerHTML = `
+        <td><input type="text" name="INCORRECT SENTENCE"></td>
+        <td><input type="text" name="CORRECT SENTENCE"></td>
+      `;
+      table.appendChild(newRow);
+    }
+
+    // Initialize the form
+    function initializeForm() {
+      handleBookSelection();
+
+      // Add event listeners for "Add More Words" and "Add More Sentences" buttons
+      document.getElementById("add-more-words").addEventListener("click", addMoreWords);
+      document.getElementById("add-more-sentences").addEventListener("click", addMoreSentences);
+
+      // Disable hidden fields before form submission
+      const form = document.getElementById("lesson-form");
+      form.addEventListener("submit", disableHiddenFields);
+    }
+
+    // Call the initialize function when the page loads
+    initializeForm();
+
+    // Translation function
     async function translateWord(input) {
       const translatedInput = input.parentElement.nextElementSibling.querySelector('input');
       const word = input.value;
