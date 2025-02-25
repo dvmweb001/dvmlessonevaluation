@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Lesson Evaluation</title>
-  <link rel="stylesheet" href="css/styles.css">
   <style>
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       height: auto;
-      min-height: 200vh;
+      min-height: 100vh;
       margin: 0;
       padding: 20px;
       font-family: Arial, sans-serif;
@@ -34,10 +33,7 @@
       margin-top: 10px;
       font-weight: bold;
     }
-    input,
-    select,
-    textarea,
-    button {
+    input, select, textarea, button {
       margin-top: 5px;
       padding: 8px;
       border: 1px solid #ccc;
@@ -48,8 +44,7 @@
       margin-top: 5px;
       border-collapse: collapse;
     }
-    table td,
-    table th {
+    table td, table th {
       border: 1px solid #ccc;
       padding: 8px;
       text-align: left;
@@ -103,7 +98,7 @@
       <label>Time Ended</label>
       <input type="time" name="TIME ENDED" required>
 
-      <!-- Book/Lesson Material Section -->
+      <!-- Book Material Dropdown -->
       <label>Book Material</label>
       <select id="book-select" name="BOOK MATERIAL" required>
         <option value="">-- Select a Book --</option>
@@ -138,13 +133,11 @@
         <label>Unit</label>
         <select id="51talk-unit" name="51TALK UNIT">
           <option value="">-- Select Unit --</option>
-          <!-- Units will be dynamically populated based on the selected level -->
         </select>
 
         <label>Lesson</label>
         <select id="51talk-lesson" name="51TALK LESSON">
           <option value="">-- Select Lesson --</option>
-          <!-- Lessons will be dynamically populated based on the selected unit -->
         </select>
       </div>
 
@@ -208,13 +201,11 @@
         <label>Unit</label>
         <select id="wonder-unit" name="WONDER UNIT">
           <option value="">-- Select Unit --</option>
-          <!-- Units will be dynamically populated based on the selected level -->
         </select>
 
         <label>Lesson</label>
         <select id="wonder-lesson" name="WONDER LESSON">
           <option value="">-- Select Lesson --</option>
-          <!-- Lessons will be dynamically populated based on the selected unit -->
         </select>
       </div>
 
@@ -223,6 +214,7 @@
         <input type="text" name="FREETALK TOPIC" placeholder="Enter topic for Free Talk/Talking Class">
       </div>
 
+      <!-- Part I: Pronunciation (Mispronounced Words) -->
       <label>Part I: Pronunciation (Mispronounced Words)</label>
       <table id="mispronounced-words-table">
         <thead>
@@ -244,6 +236,7 @@
       </table>
       <button type="button" id="add-more-words" class="add-button">Add More Words</button>
 
+      <!-- Part II: Syntax and Grammar -->
       <label>Part II: Syntax and Grammar</label>
       <table id="syntax-table">
         <thead>
@@ -265,6 +258,7 @@
       </table>
       <button type="button" id="add-more-sentences" class="add-button">Add More Sentences</button>
 
+      <!-- General Assessment -->
       <label>General Assessment</label>
       <select name="GENERAL ASSESSMENT" required>
         <option value="(B) Some comprehension, limited vocabulary, unclear pronunciation">(B) Some comprehension, limited vocabulary, unclear pronunciation.</option>
@@ -274,12 +268,14 @@
         <option value="(A+) Excellent comprehension, fluent and grammatically correct speech">(A+) Excellent comprehension, fluent and grammatically correct speech.</option>
       </select>
 
+      <!-- Feedback and Suggestions -->
       <label>Feedback</label>
       <textarea name="FEEDBACK" rows="3"></textarea>
 
       <label>Suggestions</label>
       <textarea name="SUGGESTIONS" rows="3"></textarea>
 
+      <!-- Buttons -->
       <div class="button-group">
         <button type="reset">Reset</button>
         <button type="submit">Submit</button>
@@ -382,16 +378,6 @@
       });
     }
 
-    // Function to disable hidden form fields before submission
-    function disableHiddenFields() {
-      const form = document.getElementById("lesson-form");
-      const hiddenFields = form.querySelectorAll(".hidden input, .hidden select, .hidden textarea");
-
-      hiddenFields.forEach((field) => {
-        field.disabled = true; // Disable hidden fields
-      });
-    }
-
     // Function to add more rows to the mispronounced words table
     function addMoreWords() {
       const table = document.querySelector("#mispronounced-words-table tbody");
@@ -414,21 +400,15 @@
       table.appendChild(newRow);
     }
 
-    // Initialize the form
-    function initializeForm() {
-      handleBookSelection();
-
-      // Add event listeners for "Add More Words" and "Add More Sentences" buttons
-      document.getElementById("add-more-words").addEventListener("click", addMoreWords);
-      document.getElementById("add-more-sentences").addEventListener("click", addMoreSentences);
-
-      // Disable hidden fields before form submission
+    // Function to disable hidden form fields before submission
+    function disableHiddenFields() {
       const form = document.getElementById("lesson-form");
-      form.addEventListener("submit", disableHiddenFields);
-    }
+      const hiddenFields = form.querySelectorAll(".hidden input, .hidden select, .hidden textarea");
 
-    // Call the initialize function when the page loads
-    initializeForm();
+      hiddenFields.forEach((field) => {
+        field.disabled = true; // Disable hidden fields
+      });
+    }
 
     // Translation function
     async function translateWord(input) {
@@ -447,6 +427,22 @@
         translatedInput.value = "Error in translation";
       }
     }
+
+    // Initialize the form
+    function initializeForm() {
+      handleBookSelection();
+
+      // Add event listeners for "Add More Words" and "Add More Sentences" buttons
+      document.getElementById("add-more-words").addEventListener("click", addMoreWords);
+      document.getElementById("add-more-sentences").addEventListener("click", addMoreSentences);
+
+      // Disable hidden fields before form submission
+      const form = document.getElementById("lesson-form");
+      form.addEventListener("submit", disableHiddenFields);
+    }
+
+    // Call the initialize function when the page loads
+    document.addEventListener("DOMContentLoaded", initializeForm);
   </script>
 </body>
 </html>
