@@ -15,38 +15,40 @@
       height: auto;
       min-height: 100vh;
       margin: 0;
-      padding: 20px;
+      padding: 10px;
       font-family: Arial, sans-serif;
       background-color: #FFFFFF;
     }
     .container {
       width: 100%;
-      max-width: 800px; /* Increased width for 4 columns */
-      padding: 20px;
+      max-width: 600px;
+      padding: 15px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      background-color: #f9f9f9;
+      background-color: #FFFFFF;
       border-radius: 8px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
+      font-size: 14px;
     }
     table, th, td {
       border: 1px solid #ccc;
-      padding: 8px;
+      padding: 6px;
       text-align: left;
     }
     .button-group {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
+      margin-top: 15px;
     }
     button {
-      padding: 10px 20px;
+      padding: 8px 16px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      font-size: 14px;
     }
     .edit-button {
       background-color: #007bff;
@@ -76,32 +78,16 @@
       color: green;
       font-weight: bold;
     }
-    .export-info {
-      margin-bottom: 20px;
-      font-weight: bold;
+    h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
   <div class="container" id="result-container">
     <h2>Lesson Evaluation Results</h2>
-    <div class="export-info" id="export-info">
-      <!-- Student name, date, and time will be dynamically inserted here -->
-    </div>
-    <table id="result-table">
-      <thead>
-        <tr>
-          <th>Field</th>
-          <th>Value</th>
-          <th>Mispronounced Words</th>
-          <th>Translated Word</th>
-          <th>Chinese Word</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Rows will be dynamically inserted here -->
-      </tbody>
-    </table>
+    <table id="result-table"></table>
     <div class="button-group">
       <button class="edit-button" onclick="editResults()">Edit</button>
       <button class="export-button" onclick="exportAsPNG()">Export as PNG</button>
@@ -111,19 +97,6 @@
   <script>
     function getQueryParams() {
       const params = new URLSearchParams(window.location.search);
-      const studentName = params.get("name") || "student";
-      const now = new Date();
-      const date = now.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' });
-      const time = now.toLocaleTimeString("en-US", { hour12: false });
-
-      // Display student name, date, and time
-      document.getElementById("export-info").innerHTML = `
-        <p>Student: ${studentName}</p>
-        <p>Date: ${date}</p>
-        <p>Time: ${time}</p>
-      `;
-
-      // Generate table rows
       let resultHTML = "";
       params.forEach((value, key) => {
         let formattedKey = key.replace(/_/g, ' ');
@@ -141,23 +114,9 @@
           rowClass = "suggestion";
         }
 
-        // Split mispronounced words, translated words, and Chinese words
-        const mispronouncedWords = params.get("mispronounced_words") || "";
-        const translatedWords = params.get("translated_words") || "";
-        const chineseWords = params.get("chinese_words") || "";
-
-        resultHTML += `
-          <tr>
-            <td class="${rowClass}">${formattedKey}</td>
-            <td class="${rowClass}">${value}</td>
-            <td>${mispronouncedWords}</td>
-            <td>${translatedWords}</td>
-            <td>${chineseWords}</td>
-          </tr>
-        `;
+        resultHTML += `<tr><td class="${rowClass}">${formattedKey}</td><td class="${rowClass}">${value}</td></tr>`;
       });
-
-      document.querySelector("#result-table tbody").innerHTML = resultHTML;
+      document.getElementById("result-table").innerHTML = resultHTML;
     }
     
     function editResults() {
@@ -166,22 +125,21 @@
     
     function exportAsPNG() {
       const params = new URLSearchParams(window.location.search);
-      const studentName = params.get("name") || "student";
+      let studentName = params.get("name") || "student";
+      studentName = studentName.replace(/\s+/g, "_"); // Replace spaces with underscores
+
       const now = new Date();
       const date = now.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, "");
       const time = now.toLocaleTimeString("en-US", { hour12: false }).replace(/:/g, "").slice(0, 4);
 
       const fileName = `${studentName}_${date}_${time}.png`;
 
-      // Ensure the content is fully rendered before capturing
-      setTimeout(() => {
-        html2canvas(document.getElementById("result-container")).then(canvas => {
-          let link = document.createElement("a");
-          link.download = fileName;
-          link.href = canvas.toDataURL();
-          link.click();
-        });
-      }, 500); // Add a small delay to ensure rendering
+      html2canvas(document.getElementById("result-container")).then(canvas => {
+        let link = document.createElement("a");
+        link.download = fileName;
+        link.href = canvas.toDataURL();
+        link.click();
+      });
     }
     
     window.onload = getQueryParams;
