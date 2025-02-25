@@ -76,11 +76,18 @@
       color: green;
       font-weight: bold;
     }
+    .export-info {
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <div class="container" id="result-container">
     <h2>Lesson Evaluation Results</h2>
+    <div class="export-info" id="export-info">
+      <!-- Student name, date, and time will be dynamically inserted here -->
+    </div>
     <table id="result-table"></table>
     <div class="button-group">
       <button class="edit-button" onclick="editResults()">Edit</button>
@@ -111,6 +118,18 @@
         resultHTML += `<tr><td class="${rowClass}">${formattedKey}</td><td class="${rowClass}">${value}</td></tr>`;
       });
       document.getElementById("result-table").innerHTML = resultHTML;
+
+      // Add student name, date, and time to the export info section
+      const studentName = params.get("name") || "student";
+      const now = new Date();
+      const date = now.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' });
+      const time = now.toLocaleTimeString("en-US", { hour12: false });
+
+      document.getElementById("export-info").innerHTML = `
+        <p>Student: ${studentName}</p>
+        <p>Date: ${date}</p>
+        <p>Time: ${time}</p>
+      `;
     }
     
     function editResults() {
@@ -126,14 +145,18 @@
       const date = now.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, "");
       const time = now.toLocaleTimeString("en-US", { hour12: false }).replace(/:/g, "").slice(0, 4);
 
-      const fileName = `${studentName}_${date}_${time}.png`;
+      // Correct filename format: student's name_date_time started.png
+      const fileName = `${studentName}_${date}_${time}_started.png`;
 
-      html2canvas(document.getElementById("result-container")).then(canvas => {
-        let link = document.createElement("a");
-        link.download = fileName;
-        link.href = canvas.toDataURL();
-        link.click();
-      });
+      // Ensure the content is fully rendered before capturing
+      setTimeout(() => {
+        html2canvas(document.getElementById("result-container")).then(canvas => {
+          let link = document.createElement("a");
+          link.download = fileName;
+          link.href = canvas.toDataURL();
+          link.click();
+        });
+      }, 500); // Add a small delay to ensure rendering
     }
     
     window.onload = getQueryParams;
