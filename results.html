@@ -4,64 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Lesson Evaluation</title>
+  <title>Lesson Evaluation Results</title>
   <link rel="stylesheet" href="css/styles.css">
   <style>
+    /* Add necessary styles */
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: auto;
-      min-height: 200vh;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
       margin: 0;
       padding: 20px;
-      font-family: Arial, sans-serif;
-      background-color: #FFFFFF;
     }
     .container {
       width: 100%;
-      max-width: 600px;
+      max-width: 800px;
+      margin: 0 auto;
       padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      background-color: #f9f9f9;
+      background-color: #fff;
       border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-    label {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    input,
-    select,
-    textarea,
-    button {
-      margin-top: 5px;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .radio-group {
-      display: flex;
-      gap: 5px;
+    h1 {
+      text-align: center;
+      color: #333;
     }
     table {
-      width: 75%;
-      margin-top: 5px;
+      width: 100%;
+      margin-top: 20px;
       border-collapse: collapse;
     }
-    table td,
-    table th {
-      border: 1px solid #ccc;
-      padding: 4px;
+    table th,
+    table td {
+      border: 1px solid #ddd;
+      padding: 10px;
       text-align: left;
     }
     .button-group {
-      display: flex;
-      justify-content: space-between;
       margin-top: 20px;
+      text-align: center;
     }
     button {
       padding: 10px 20px;
@@ -69,376 +48,94 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    button[type="reset"] {
+    button[type="button"] {
       background-color: #f44336;
       color: white;
     }
-    button[type="submit"] {
-      background-color: #4CAF50;
-      color: white;
-    }
-    select {
-      color: #000;
-      background-color: #fff;
-    }
-    option {
-      color: #000;
-      background-color: #fff;
-    }
-    .hidden {
-      display: none;
+    button[type="button"]:hover {
+      background-color: #d32f2f;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <form id="lesson-form" action="results.html" method="GET">
-      <label>Student's Name</label>
-      <input type="text" name="STUDENT'S NAME" required>
-
-      <label>Date</label>
-      <input type="date" name="LESSON DATE" required>
-
-      <label>Time Started</label>
-      <input type="time" name="TIME STARTED" required>
-
-      <label>Time Ended</label>
-      <input type="time" name="TIME ENDED" required>
-
-      <!-- Step 1: Select Book -->
-      <label>Book Material</label>
-      <select id="book-select" name="BOOK MATERIAL" required>
-        <option value="">-- Select a Book --</option>
-        <option value="51Talk Classic English Junior">51Talk Classic English Junior</option>
-        <option value="Let's Go">Let's Go</option>
-        <option value="National Geographic Reading Explorer 2nd Edition">National Geographic Reading Explorer 2nd Edition</option>
-        <option value="National Geographic Reading Explorer 3rd Edition">National Geographic Reading Explorer 3rd Edition</option>
-        <option value="Oxford Discover">Oxford Discover</option>
-        <option value="Wonder Skills Reading">Wonder Skills Reading</option>
-        <option value="Free Talk/Talking Class">Free Talk/Talking Class</option>
-      </select>
-
-      <!-- Step 2: Book-Specific Options -->
-      <div id="51talk-options" class="hidden">
-        <label>Level</label>
-        <select id="51talk-level" name="51TALK LEVEL">
-          <option value="">-- Select Level --</option>
-          <option value="S">S</option>
-          <option value="0">0</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-
-        <label>Unit</label>
-        <select id="51talk-unit" name="51TALK UNIT">
-          <option value="">-- Select Unit --</option>
-          <!-- Units will be dynamically populated based on the selected level -->
-        </select>
-
-        <label>Lesson</label>
-        <select id="51talk-lesson" name="51TALK LESSON">
-          <option value="">-- Select Lesson --</option>
-          <!-- Lessons will be dynamically populated based on the selected unit -->
-        </select>
-      </div>
-
-      <div id="letsgo-options" class="hidden">
-        <label>Volume</label>
-        <select id="letsgo-volume" name="LET'S GO VOLUME">
-          <option value="Let's Go/Book 1">Let's Go/Book 1</option>
-          <option value="Let's Go/Book 2">Let's Go/Book 2</option>
-          <option value="Let's Go/Book 3">Let's Go/Book 3</option>
-          <option value="Let's Go/Book 4">Let's Go/Book 4</option>
-          <option value="Let's Go/Book 5">Let's Go/Book 5</option>
-          <option value="Let's Go/Book 6">Let's Go/Book 6</option>
-        </select>
-      </div>
-
-      <div id="natgeo2-options" class="hidden">
-        <label>Book</label>
-        <select id="natgeo2-book" name="NATGEO 2 BOOK">
-          <option value="Foundation Book">Foundation Book</option>
-          <option value="Book 2">Book 2</option>
-          <option value="Book 3">Book 3</option>
-        </select>
-      </div>
-
-      <div id="natgeo3-options" class="hidden">
-        <label>Book</label>
-        <select id="natgeo3-book" name="NATGEO 3 BOOK">
-          <option value="Foundation Book">Foundation Book</option>
-          <option value="Book 2">Book 2</option>
-          <option value="Book 3">Book 3</option>
-          <option value="Book 4">Book 4</option>
-          <option value="Book 5">Book 5</option>
-          <option value="Book 6">Book 6</option>
-        </select>
-      </div>
-
-      <div id="oxford-options" class="hidden">
-        <label>Book</label>
-        <select id="oxford-book" name="OXFORD BOOK">
-          <option value="Student Book 1">Student Book 1</option>
-          <option value="Student Book 2">Student Book 2</option>
-          <option value="Student Book 3">Student Book 3</option>
-          <option value="Student Book 4">Student Book 4</option>
-          <option value="Student Book 5">Student Book 5</option>
-          <option value="Student Book 6">Student Book 6</option>
-          <option value="Oxford Phonics World 1">Oxford Phonics World 1</option>
-        </select>
-      </div>
-
-      <div id="wonder-options" class="hidden">
-        <label>Level</label>
-        <select id="wonder-level" name="WONDER LEVEL">
-          <option value="">-- Select Level --</option>
-          <option value="Starter">Starter</option>
-          <option value="Basic">Basic</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Advance">Advance</option>
-          <option value="Master">Master</option>
-        </select>
-
-        <label>Unit</label>
-        <select id="wonder-unit" name="WONDER UNIT">
-          <option value="">-- Select Unit --</option>
-          <!-- Units will be dynamically populated based on the selected level -->
-        </select>
-
-        <label>Lesson</label>
-        <select id="wonder-lesson" name="WONDER LESSON">
-          <option value="">-- Select Lesson --</option>
-          <!-- Lessons will be dynamically populated based on the selected unit -->
-        </select>
-      </div>
-
-      <div id="freetalk-options" class="hidden">
-        <label>Topic</label>
-        <input type="text" name="FREETALK TOPIC" placeholder="Enter topic for Free Talk/Talking Class">
-      </div>
-
-      <label>Pages</label>
-      <div class="radio-group">
-        <input type="number" name="PAGE" min="1" placeholder="From Page" required>
-        <input type="number" name="TO PAGE" min="1" placeholder="To Page" required>
-      </div>
-
-      <label>Note/Remarks on the Lesson Material</label>
-      <textarea name="NOTE/REMARKS ON THE LESSON MATERIAL" rows="3"></textarea>
-
-      <label>Part I: Pronunciation (Mispronounced Words)</label>
-      <div class="radio-group">
-        <input type="text" name="MISPRONOUNCED WORD 1" placeholder="Word 1" required>
-        <input type="text" name="MISPRONOUNCED WORD 2" placeholder="Word 2" required>
-      </div>
-      <div class="radio-group">
-        <input type="text" name="MISPRONOUNCED WORD 3" placeholder="Word 3">
-        <input type="text" name="MISPRONOUNCED WORD 4" placeholder="Word 4">
-      </div>
-      <div class="radio-group">
-        <input type="text" name="MISPRONOUNCED WORD 5" placeholder="Word 5">
-        <input type="text" name="MISPRONOUNCED WORD 6" placeholder="Word 6">
-      </div>
-
-      <label>Part II: Syntax and Grammar</label>
-      <table>
-        <tr>
-          <th>Incorrect Sentences</th>
-          <th>Correct Sentences</th>
-        </tr>
-        <tr>
-          <td><input type="text" name="INCORRECT SENTENCE 1" required></td>
-          <td><input type="text" name="CORRECT SENTENCE 1" required></td>
-        </tr>
-        <tr>
-          <td><input type="text" name="INCORRECT SENTENCE 2"></td>
-          <td><input type="text" name="CORRECT SENTENCE 2"></td>
-        </tr>
-        <tr>
-          <td><input type="text" name="INCORRECT SENTENCE 3"></td>
-          <td><input type="text" name="CORRECT SENTENCE 3"></td>
-        </tr>
-        <tr>
-          <td><input type="text" name="INCORRECT SENTENCE 4"></td>
-          <td><input type="text" name="CORRECT SENTENCE 4"></td>
-        </tr>
-      </table>
-
-      <label>General Assessment</label>
-      <select name="GENERAL ASSESSMENT" required>
-        <option value="B (Some comprehension, limited vocabulary, unclear pronunciation.)">B - Some comprehension, limited vocabulary, unclear pronunciation.</option>
-        <option value="B+ (Better comprehension, simple words and grammar, some pronunciation difficulties.)">B+ - Better comprehension, simple words and grammar, some pronunciation difficulties.</option>
-        <option value="A- (Mostly accurate comprehension, minor mistakes in grammar and pronunciation.)">A- - Mostly accurate comprehension, minor mistakes in grammar and pronunciation.</option>
-        <option value="A (Good comprehension, minor lapses in grammar and fluency)">A - Good comprehension, minor lapses in grammar and fluency.</option>
-        <option value="A+ (Excellent comprehension, fluent and grammatically correct speech.)">A+ - Excellent comprehension, fluent and grammatically correct speech.</option>
-      </select>
-
-      <label>Feedback</label>
-      <textarea name="FEEDBACK" rows="3"></textarea>
-
-      <label>Suggestions</label>
-      <textarea name="SUGGESTIONS" rows="3"></textarea>
-
-      <div class="button-group">
-        <button type="reset">Reset</button>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
+    <h1>Lesson Evaluation Results</h1>
+    <table>
+      <tr>
+        <th>Student's Name</th>
+        <td id="student-name"></td>
+      </tr>
+      <tr>
+        <th>Lesson Date</th>
+        <td id="lesson-date"></td>
+      </tr>
+      <tr>
+        <th>Time Started</th>
+        <td id="time-started"></td>
+      </tr>
+      <tr>
+        <th>Time Ended</th>
+        <td id="time-ended"></td>
+      </tr>
+      <tr>
+        <th>Mispronounced Words</th>
+        <td id="mispronounced-words"></td>
+      </tr>
+      <tr>
+        <th>Incorrect and Correct Sentences</th>
+        <td id="incorrect-correct-sentences"></td>
+      </tr>
+      <tr>
+        <th>General Assessment</th>
+        <td id="general-assessment"></td>
+      </tr>
+      <tr>
+        <th>Feedback</th>
+        <td id="feedback"></td>
+      </tr>
+      <tr>
+        <th>Suggestions</th>
+        <td id="suggestions"></td>
+      </tr>
+    </table>
+    <div class="button-group">
+      <button type="button" onclick="window.history.back();">Go Back</button>
+    </div>
   </div>
 
   <script>
-    // Function to populate units for 51Talk Classic English Junior
-    function populate51TalkUnits() {
-      const unitSelect = document.getElementById("51talk-unit");
-      unitSelect.innerHTML = '<option value="">-- Select Unit --</option>';
-      for (let i = 1; i <= 18; i++) {
-        const option = document.createElement("option");
-        option.value = `Unit ${i}`;
-        option.textContent = `Unit ${i}`;
-        unitSelect.appendChild(option);
-      }
+    // Get data from URL query parameters and populate the results page
+    const urlParams = new URLSearchParams(window.location.search);
+
+    document.getElementById("student-name").textContent = urlParams.get("STUDENT'S NAME");
+    document.getElementById("lesson-date").textContent = urlParams.get("LESSON DATE");
+    document.getElementById("time-started").textContent = urlParams.get("TIME STARTED");
+    document.getElementById("time-ended").textContent = urlParams.get("TIME ENDED");
+    document.getElementById("general-assessment").textContent = urlParams.get("GENERAL ASSESSMENT");
+    document.getElementById("feedback").textContent = urlParams.get("FEEDBACK");
+    document.getElementById("suggestions").textContent = urlParams.get("SUGGESTIONS");
+
+    // Handle mispronounced words
+    const mispronouncedWords = [];
+    let i = 1;
+    while (urlParams.has(`MISPRONOUNCED WORD ${i}`)) {
+      const word = urlParams.get(`MISPRONOUNCED WORD ${i}`);
+      const translatedWord = urlParams.get(`TRANSLATED WORD ${i}`);
+      mispronouncedWords.push(`${word} - ${translatedWord}`);
+      i++;
     }
+    document.getElementById("mispronounced-words").textContent = mispronouncedWords.join(", ");
 
-    // Function to populate lessons for 51Talk Classic English Junior
-    function populate51TalkLessons() {
-      const lessonSelect = document.getElementById("51talk-lesson");
-      lessonSelect.innerHTML = '<option value="">-- Select Lesson --</option>';
-      for (let i = 1; i <= 8; i++) {
-        const option = document.createElement("option");
-        option.value = `Lesson ${i}`;
-        option.textContent = `Lesson ${i}`;
-        lessonSelect.appendChild(option);
-      }
+    // Handle incorrect and correct sentences
+    const incorrectCorrectSentences = [];
+    let j = 1;
+    while (urlParams.has(`INCORRECT SENTENCE ${j}`)) {
+      const incorrectSentence = urlParams.get(`INCORRECT SENTENCE ${j}`);
+      const correctSentence = urlParams.get(`CORRECT SENTENCE ${j}`);
+      incorrectCorrectSentences.push(`${incorrectSentence} -> ${correctSentence}`);
+      j++;
     }
-
-    // Function to populate units for Wonder Skills Reading
-    function populateWonderUnits() {
-      const unitSelect = document.getElementById("wonder-unit");
-      unitSelect.innerHTML = '<option value="">-- Select Unit --</option>';
-      for (let i = 1; i <= 3; i++) {
-        const option = document.createElement("option");
-        option.value = `Unit ${i}`;
-        option.textContent = `Unit ${i}`;
-        unitSelect.appendChild(option);
-      }
-    }
-
-    // Function to populate lessons for Wonder Skills Reading
-    function populateWonderLessons() {
-      const lessonSelect = document.getElementById("wonder-lesson");
-      lessonSelect.innerHTML = '<option value="">-- Select Lesson --</option>';
-      for (let i = 1; i <= 12; i++) {
-        const option = document.createElement("option");
-        option.value = `Lesson ${i}`;
-        option.textContent = `Lesson ${i}`;
-        lessonSelect.appendChild(option);
-      }
-    }
-
-    // Function to handle book selection
-    function handleBookSelection() {
-      const bookSelect = document.getElementById("book-select");
-      const talkOptions = document.getElementById("51talk-options");
-      const letsGoOptions = document.getElementById("letsgo-options");
-      const natgeo2Options = document.getElementById("natgeo2-options");
-      const natgeo3Options = document.getElementById("natgeo3-options");
-      const oxfordOptions = document.getElementById("oxford-options");
-      const wonderOptions = document.getElementById("wonder-options");
-      const freetalkOptions = document.getElementById("freetalk-options");
-
-      bookSelect.addEventListener("change", () => {
-        const selectedBook = bookSelect.value;
-
-        // Hide all options first
-        talkOptions.classList.add("hidden");
-        letsGoOptions.classList.add("hidden");
-        natgeo2Options.classList.add("hidden");
-        natgeo3Options.classList.add("hidden");
-        oxfordOptions.classList.add("hidden");
-        wonderOptions.classList.add("hidden");
-        freetalkOptions.classList.add("hidden");
-
-        // Show the selected book's options
-        if (selectedBook === "51Talk Classic English Junior") {
-          talkOptions.classList.remove("hidden");
-          populate51TalkUnits();
-          populate51TalkLessons();
-        } else if (selectedBook === "Let's Go") {
-          letsGoOptions.classList.remove("hidden");
-        } else if (selectedBook === "National Geographic Reading Explorer 2nd Edition") {
-          natgeo2Options.classList.remove("hidden");
-        } else if (selectedBook === "National Geographic Reading Explorer 3rd Edition") {
-          natgeo3Options.classList.remove("hidden");
-        } else if (selectedBook === "Oxford Discover") {
-          oxfordOptions.classList.remove("hidden");
-        } else if (selectedBook === "Wonder Skills Reading") {
-          wonderOptions.classList.remove("hidden");
-          populateWonderUnits();
-          populateWonderLessons();
-        } else if (selectedBook === "Free Talk/Talking Class") {
-          freetalkOptions.classList.remove("hidden");
-        }
-      });
-    }
-
-    // Function to disable hidden form fields before submission
-    function disableHiddenFields() {
-      const form = document.getElementById("lesson-form");
-      const hiddenFields = form.querySelectorAll(".hidden input, .hidden select, .hidden textarea");
-
-      hiddenFields.forEach((field) => {
-        field.disabled = true; // Disable hidden fields
-      });
-    }
-
-    // Function to pre-fill form fields with URL parameters
-    function prefillFormFields() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const form = document.getElementById("lesson-form");
-
-      // Loop through all form elements and pre-fill them
-      Array.from(form.elements).forEach((element) => {
-        if (element.name && urlParams.has(element.name)) {
-          if (element.tagName === "SELECT") {
-            // Handle select elements
-            const option = element.querySelector(`option[value="${urlParams.get(element.name)}"]`);
-            if (option) {
-              option.selected = true;
-            }
-          } else {
-            // Handle input and textarea elements
-            element.value = urlParams.get(element.name);
-          }
-        }
-      });
-
-      // Trigger book selection to show/hide options
-      const bookSelect = document.getElementById("book-select");
-      if (bookSelect.value) {
-        bookSelect.dispatchEvent(new Event("change"));
-      }
-    }
-
-    // Initialize the form
-    function initializeForm() {
-      handleBookSelection();
-      prefillFormFields();
-
-      // Disable hidden fields before form submission
-      const form = document.getElementById("lesson-form");
-      form.addEventListener("submit", disableHiddenFields);
-    }
-
-    // Call the initialize function when the page loads
-    initializeForm();
+    document.getElementById("incorrect-correct-sentences").textContent = incorrectCorrectSentences.join(", ");
   </script>
 </body>
 </html>
