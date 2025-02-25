@@ -56,22 +56,6 @@
       background-color: #4CAF50;
       color: white;
     }
-    td:contains("Incorrect Sentence") {
-      font-weight: bold;
-      color: red;
-    }
-    td:contains("Correct Sentence") {
-      font-weight: bold;
-      color: green;
-    }
-    td:contains("Feedback"), td:contains("Name"), td:contains("Assessment") {
-      font-weight: bold;
-      color: black;
-    }
-    td:contains("Suggestions") {
-      font-weight: bold;
-      color: green;
-    }
   </style>
 </head>
 <body>
@@ -90,15 +74,6 @@
       let resultHTML = "<tr><th>Field</th><th>Value</th></tr>";
       params.forEach((value, key) => {
         let formattedKey = key.replace(/_/g, ' ');
-        if (formattedKey.toLowerCase().includes("incorrect sentence")) {
-          formattedKey = `<span style='font-weight:bold; color:red;'>${formattedKey}</span>`;
-        } else if (formattedKey.toLowerCase().includes("correct sentence")) {
-          formattedKey = `<span style='font-weight:bold; color:green;'>${formattedKey}</span>`;
-        } else if (["feedback", "name", "assessment"].includes(formattedKey.toLowerCase())) {
-          formattedKey = `<span style='font-weight:bold; color:black;'>${formattedKey}</span>`;
-        } else if (formattedKey.toLowerCase().includes("suggestions")) {
-          formattedKey = `<span style='font-weight:bold; color:green;'>${formattedKey}</span>`;
-        }
         resultHTML += `<tr><td>${formattedKey}</td><td>${value}</td></tr>`;
       });
       document.getElementById("result-table").innerHTML = resultHTML;
@@ -109,9 +84,19 @@
     }
     
     function exportAsPNG() {
+      const params = new URLSearchParams(window.location.search);
+      let studentName = params.get("name") || "student";
+      studentName = studentName.replace(/\s+/g, "_"); // Replace spaces with underscores
+
+      const now = new Date();
+      const date = now.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, "");
+      const time = now.toLocaleTimeString("en-US", { hour12: false }).replace(/:/g, "").slice(0, 4);
+
+      const fileName = `${studentName}_${date}_${time}.png`;
+
       html2canvas(document.getElementById("result-container")).then(canvas => {
         let link = document.createElement("a");
-        link.download = "lesson_evaluation.png";
+        link.download = fileName;
         link.href = canvas.toDataURL();
         link.click();
       });
