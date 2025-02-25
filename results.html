@@ -56,6 +56,22 @@
       background-color: #4CAF50;
       color: white;
     }
+    td:contains("Incorrect Sentence") {
+      font-weight: bold;
+      color: red;
+    }
+    td:contains("Correct Sentence") {
+      font-weight: bold;
+      color: green;
+    }
+    td:contains("Feedback"), td:contains("Name"), td:contains("Assessment") {
+      font-weight: bold;
+      color: black;
+    }
+    td:contains("Suggestions") {
+      font-weight: bold;
+      color: green;
+    }
   </style>
 </head>
 <body>
@@ -73,7 +89,17 @@
       const params = new URLSearchParams(window.location.search);
       let resultHTML = "<tr><th>Field</th><th>Value</th></tr>";
       params.forEach((value, key) => {
-        resultHTML += `<tr><td>${key.replace(/_/g, ' ')}</td><td>${value}</td></tr>`;
+        let formattedKey = key.replace(/_/g, ' ');
+        if (formattedKey.toLowerCase().includes("incorrect sentence")) {
+          formattedKey = `<span style='font-weight:bold; color:red;'>${formattedKey}</span>`;
+        } else if (formattedKey.toLowerCase().includes("correct sentence")) {
+          formattedKey = `<span style='font-weight:bold; color:green;'>${formattedKey}</span>`;
+        } else if (["feedback", "name", "assessment"].includes(formattedKey.toLowerCase())) {
+          formattedKey = `<span style='font-weight:bold; color:black;'>${formattedKey}</span>`;
+        } else if (formattedKey.toLowerCase().includes("suggestions")) {
+          formattedKey = `<span style='font-weight:bold; color:green;'>${formattedKey}</span>`;
+        }
+        resultHTML += `<tr><td>${formattedKey}</td><td>${value}</td></tr>`;
       });
       document.getElementById("result-table").innerHTML = resultHTML;
     }
